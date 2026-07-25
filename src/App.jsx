@@ -247,8 +247,8 @@ export default function App() {
     <div>
       <canvas id="petalsCanvas"></canvas>
 
-      {/* Audio Element */}
-      <audio ref={audioRef} loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=indian-flute-ambient-112318.mp3" />
+      {/* Audio Element: Traditional Shehnai & Nadaswaram Devotional Ambiance */}
+      <audio ref={audioRef} loop src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=indian-festive-classical-17254.mp3" />
 
       {/* Custom Luxury Toast Banner */}
       {toast.show && (
@@ -268,7 +268,7 @@ export default function App() {
         </span>
         <button className="music-btn" onClick={toggleMusic}>
           <span>{isPlayingMusic ? '⏸️' : '🎵'}</span>
-          <span>{isPlayingMusic ? 'Pause Flute' : 'Play Ambiance'}</span>
+          <span>{isPlayingMusic ? 'Pause Devotional Music' : 'Play Devotional Music'}</span>
         </button>
       </div>
 
