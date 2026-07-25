@@ -47,6 +47,61 @@ body {
   z-index: 99;
 }
 
+/* Custom Luxury Toast Notification */
+.toast-container {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  width: 90%;
+  max-width: 480px;
+  animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-card {
+  background: linear-gradient(135deg, var(--deep-maroon), #6B111D);
+  color: #fff;
+  border: 2px solid var(--primary-gold);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 12px 35px rgba(74, 14, 23, 0.4), 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.toast-icon {
+  font-size: 1.8rem;
+}
+
+.toast-text {
+  flex: 1;
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--silk-cream);
+}
+
+.toast-close {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: var(--primary-gold-light);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translate(-50%, -30px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
 /* Typography Utility */
 .font-heading {
   font-family: 'Rozha One', serif;

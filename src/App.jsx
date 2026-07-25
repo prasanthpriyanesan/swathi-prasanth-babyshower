@@ -16,6 +16,16 @@ export default function App() {
   const [adminTab, setAdminTab] = useState('rsvps'); // 'rsvps' or 'blessings'
   const [clickCount, setClickCount] = useState(0);
 
+  // Toast Notification state
+  const [toast, setToast] = useState({ show: false, message: '', icon: '✨' });
+
+  const showToast = (message, icon = '✨') => {
+    setToast({ show: true, message, icon });
+    setTimeout(() => {
+      setToast({ show: false, message: '', icon: '✨' });
+    }, 4500);
+  };
+
   // Data state
   const [blessings, setBlessings] = useState([]);
   const [rsvps, setRsvps] = useState([]);
@@ -141,7 +151,7 @@ export default function App() {
       setIsPlayingMusic(false);
     } else {
       audioRef.current.play().then(() => setIsPlayingMusic(true)).catch(err => {
-        alert("Click anywhere on the page first to allow background audio!");
+        showToast("Click anywhere on the page first to allow ambient audio!", "🎵");
       });
     }
   };
@@ -161,8 +171,9 @@ export default function App() {
     e.preventDefault();
     if (!rsvpForm.name) return;
 
+    const guestName = rsvpForm.name;
     await db.addRsvp({
-      name: rsvpForm.name,
+      name: guestName,
       count: rsvpForm.count,
       phone: 'N/A',
       diet: 'Pure Veg',
@@ -172,7 +183,7 @@ export default function App() {
     setIsRsvpOpen(false);
     setRsvpForm({ name: '', count: '2', phone: 'N/A', diet: 'Pure Veg', song: '' });
     await loadData();
-    alert(`🪔 Thank you, ${rsvpForm.name}! Your RSVP has been confirmed for Swathi's celebration.`);
+    showToast(`Thank you ${guestName}! Your RSVP has been confirmed for Swathi's celebration.`, '🪔');
   };
 
   const handleBlessingSubmit = async (e) => {
@@ -187,13 +198,14 @@ export default function App() {
     setBlessingForm({ author: '', relation: '', text: '' });
     await loadData();
     triggerConfetti();
-    alert("🙏 Thank you! Your blessing has been posted on the wall.");
+    showToast("Thank you! Your blessing has been posted on the wall.", "🙏");
   };
 
   const handleDeleteRsvp = async (id) => {
     if (window.confirm("Are you sure you want to delete this RSVP entry?")) {
       await db.deleteRsvp(id);
       await loadData();
+      showToast("RSVP entry deleted.", "🗑️");
     }
   };
 
@@ -201,13 +213,14 @@ export default function App() {
     if (window.confirm("Are you sure you want to delete this blessing from the wall?")) {
       await db.deleteBlessing(id);
       await loadData();
+      showToast("Blessing removed from wall.", "🗑️");
     }
   };
 
   // Export CSV for Host
   const exportRsvpsCsv = () => {
     if (rsvps.length === 0) {
-      alert("No RSVPs to export yet!");
+      showToast("No RSVPs to export yet!", "ℹ️");
       return;
     }
     const headers = ["Name", "Total Guests Attending", "Date Submitted"];
@@ -225,6 +238,7 @@ export default function App() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    showToast("RSVP list downloaded successfully!", "📥");
   };
 
   const totalGuestsCount = rsvps.reduce((acc, curr) => acc + (parseInt(curr.count) || 1), 0);
@@ -235,6 +249,17 @@ export default function App() {
 
       {/* Audio Element */}
       <audio ref={audioRef} loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=indian-flute-ambient-112318.mp3" />
+
+      {/* Custom Luxury Toast Banner */}
+      {toast.show && (
+        <div className="toast-container">
+          <div className="toast-card">
+            <div className="toast-icon">{toast.icon}</div>
+            <div className="toast-text">{toast.message}</div>
+            <button className="toast-close" onClick={() => setToast({ show: false, message: '', icon: '✨' })}>✕</button>
+          </div>
+        </div>
+      )}
 
       {/* Top Shloka Bar (Tamil & Telugu Invocations) */}
       <div className="shloka-bar">
