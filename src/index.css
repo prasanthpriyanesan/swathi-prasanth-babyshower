@@ -630,11 +630,18 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .hero-title { font-size: 2.3rem; }
+  .hero {
+    background: linear-gradient(rgba(24, 44, 16, 0.7), rgba(45, 74, 14, 0.8)),
+                url('/assets/banana_leaf_mobile.png') center top / cover no-repeat;
+    min-height: 80vh;
+    padding: 50px 16px;
+  }
+  .hero-title { font-size: 2.2rem; }
+  .hero-subtitle { font-size: 1.1rem; }
   .welcome-grid { grid-template-columns: 1fr; }
   .nav-links { display: none; }
   .mobile-quick-nav { display: flex; }
   .mobile-menu-toggle { display: flex; }
-  .hero-date-card { padding: 12px 20px; gap: 14px; }
-  .countdown-num { font-size: 1.6rem; }
+  .hero-date-card { padding: 12px 18px; gap: 12px; }
+  .countdown-num { font-size: 1.5rem; }
 }
