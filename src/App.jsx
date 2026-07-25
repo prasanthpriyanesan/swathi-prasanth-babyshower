@@ -398,7 +398,7 @@ export default function App() {
             <form onSubmit={handleBlessingSubmit}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                 <div className="form-group">
-                  <label>Your Name / Family Name *</label>
+                  <label>Your Name *</label>
                   <input
                     type="text"
                     className="form-control"
@@ -409,7 +409,7 @@ export default function App() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Relationship / Note</label>
+                  <label>Relationship</label>
                   <input
                     type="text"
                     className="form-control"
@@ -420,7 +420,7 @@ export default function App() {
                 </div>
               </div>
               <div className="form-group">
-                <label>Your Blessing / Message *</label>
+                <label>Your blessing *</label>
                 <textarea
                   className="form-control"
                   rows="3"
@@ -514,7 +514,7 @@ export default function App() {
 
             <form onSubmit={handleRsvpSubmit}>
               <div className="form-group">
-                <label>Full Name / Family Name *</label>
+                <label>Your Name *</label>
                 <input
                   type="text"
                   className="form-control"
