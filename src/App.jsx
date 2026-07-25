@@ -20,8 +20,8 @@ export default function App() {
   const [blessings, setBlessings] = useState([]);
   const [rsvps, setRsvps] = useState([]);
 
-  // Form states
-  const [rsvpForm, setRsvpForm] = useState({ name: '', phone: '', count: '2', diet: 'Pure Veg', song: '' });
+  // Form states (Simplified RSVP: Only Name & Count)
+  const [rsvpForm, setRsvpForm] = useState({ name: '', count: '2', phone: 'N/A', diet: 'Pure Veg', song: '' });
   const [blessingForm, setBlessingForm] = useState({ author: '', relation: '', text: '' });
 
   // Fetch initial data & check for Secret Admin URL
@@ -159,12 +159,18 @@ export default function App() {
   // Form Submissions & Deletions
   const handleRsvpSubmit = async (e) => {
     e.preventDefault();
-    if (!rsvpForm.name || !rsvpForm.phone) return;
+    if (!rsvpForm.name) return;
 
-    await db.addRsvp(rsvpForm);
+    await db.addRsvp({
+      name: rsvpForm.name,
+      count: rsvpForm.count,
+      phone: 'N/A',
+      diet: 'Pure Veg',
+      song: ''
+    });
     triggerConfetti();
     setIsRsvpOpen(false);
-    setRsvpForm({ name: '', phone: '', count: '2', diet: 'Pure Veg', song: '' });
+    setRsvpForm({ name: '', count: '2', phone: 'N/A', diet: 'Pure Veg', song: '' });
     await loadData();
     alert(`🪔 Thank you, ${rsvpForm.name}! Your RSVP has been confirmed for Swathi's celebration.`);
   };
@@ -204,13 +210,10 @@ export default function App() {
       alert("No RSVPs to export yet!");
       return;
     }
-    const headers = ["Name", "Phone", "Guest Count", "Dietary Preference", "Song Request", "Date"];
+    const headers = ["Name", "Total Guests Attending", "Date Submitted"];
     const rows = rsvps.map(r => [
       `"${r.name}"`,
-      `"${r.phone}"`,
       `"${r.count}"`,
-      `"${r.diet}"`,
-      `"${r.song || ''}"`,
       `"${r.created_at || ''}"`
     ]);
 
@@ -498,7 +501,7 @@ export default function App() {
         </div>
       </footer>
 
-      {/* RSVP Modal */}
+      {/* Simplified Minimal RSVP Modal (Only Name & Total Attending) */}
       {isRsvpOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -506,74 +509,39 @@ export default function App() {
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
               <div style={{ fontSize: '2.5rem' }}>🪔</div>
               <h2 className="font-heading" style={{ color: 'var(--deep-maroon)', fontSize: '2rem' }}>Confirm Your Presence</h2>
-              <p style={{ color: 'var(--text-muted)' }}>Please RSVP by August 5, 2026 for arrangements.</p>
+              <p style={{ color: 'var(--text-muted)' }}>Please RSVP by August 5, 2026</p>
             </div>
 
             <form onSubmit={handleRsvpSubmit}>
               <div className="form-group">
-                <label>Full Name *</label>
+                <label>Full Name / Family Name *</label>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="e.g. Sundar & Meena"
+                  placeholder="e.g. Sundar & Meena Family"
                   value={rsvpForm.name}
                   onChange={e => setRsvpForm({ ...rsvpForm, name: e.target.value })}
                   required
                 />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div className="form-group">
-                  <label>Phone / WhatsApp *</label>
-                  <input
-                    type="tel"
-                    className="form-control"
-                    placeholder="+91 / +1 ..."
-                    value={rsvpForm.phone}
-                    onChange={e => setRsvpForm({ ...rsvpForm, phone: e.target.value })}
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Total Attending *</label>
-                  <select
-                    className="form-control"
-                    value={rsvpForm.count}
-                    onChange={e => setRsvpForm({ ...rsvpForm, count: e.target.value })}
-                  >
-                    <option value="1">1 Person</option>
-                    <option value="2">2 Persons</option>
-                    <option value="3">3 Persons (Family)</option>
-                    <option value="4+">4+ Persons</option>
-                  </select>
-                </div>
-              </div>
-
               <div className="form-group">
-                <label>Dietary Preference *</label>
+                <label>Total Guests Attending *</label>
                 <select
                   className="form-control"
-                  value={rsvpForm.diet}
-                  onChange={e => setRsvpForm({ ...rsvpForm, diet: e.target.value })}
+                  value={rsvpForm.count}
+                  onChange={e => setRsvpForm({ ...rsvpForm, count: e.target.value })}
                 >
-                  <option value="Pure Veg">Traditional Pure Vegetarian</option>
-                  <option value="Jain Veg">Jain Vegetarian (No Onion/Garlic)</option>
-                  <option value="Non Veg">Non-Vegetarian Options</option>
+                  <option value="1">1 Person</option>
+                  <option value="2">2 Persons</option>
+                  <option value="3">3 Persons</option>
+                  <option value="4">4 Persons</option>
+                  <option value="5">5 Persons</option>
+                  <option value="6+">6+ Persons</option>
                 </select>
               </div>
 
-              <div className="form-group">
-                <label>Song Request (Optional)</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="e.g. Tamil / Telugu festive songs..."
-                  value={rsvpForm.song}
-                  onChange={e => setRsvpForm({ ...rsvpForm, song: e.target.value })}
-                />
-              </div>
-
-              <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '10px' }}>
+              <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '15px' }}>
                 <span>🙏 Confirm RSVP</span>
               </button>
             </form>
@@ -639,11 +607,8 @@ export default function App() {
                   <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
                     <thead>
                       <tr style={{ background: 'var(--deep-maroon)', color: 'var(--primary-gold-light)' }}>
-                        <th style={{ padding: '8px' }}>Name</th>
-                        <th style={{ padding: '8px' }}>Phone</th>
-                        <th style={{ padding: '8px' }}>Count</th>
-                        <th style={{ padding: '8px' }}>Diet</th>
-                        <th style={{ padding: '8px' }}>Song Request</th>
+                        <th style={{ padding: '8px' }}>Guest / Family Name</th>
+                        <th style={{ padding: '8px', textAlign: 'center' }}>Attending Count</th>
                         <th style={{ padding: '8px', textAlign: 'center' }}>Action</th>
                       </tr>
                     </thead>
@@ -651,10 +616,7 @@ export default function App() {
                       {rsvps.map((r, idx) => (
                         <tr key={r.id || idx} style={{ borderBottom: '1px solid #eee' }}>
                           <td style={{ padding: '8px', fontWeight: 600 }}>{r.name}</td>
-                          <td style={{ padding: '8px' }}>{r.phone}</td>
-                          <td style={{ padding: '8px' }}>{r.count}</td>
-                          <td style={{ padding: '8px', color: 'var(--saffron-orange)', fontWeight: 600 }}>{r.diet}</td>
-                          <td style={{ padding: '8px' }}>{r.song || '—'}</td>
+                          <td style={{ padding: '8px', textAlign: 'center', fontWeight: 700, color: 'var(--saffron-orange)' }}>{r.count}</td>
                           <td style={{ padding: '8px', textAlign: 'center' }}>
                             <button
                               onClick={() => handleDeleteRsvp(r.id)}
