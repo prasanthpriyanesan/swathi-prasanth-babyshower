@@ -1,0 +1,609 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Rozha+One&display=swap');
+
+:root {
+  --primary-gold: #D4AF37;
+  --primary-gold-light: #F3E5AB;
+  --saffron-orange: #E65100;
+  --bright-saffron: #FF7D00;
+  --turmeric-yellow: #FFB300;
+  --crimson-red: #8B0000;
+  --deep-maroon: #4A0E17;
+  --peacock-teal: #004D40;
+  --silk-cream: #FFFDF5;
+  --silk-warm: #FAF4E8;
+  --card-bg: rgba(255, 253, 245, 0.9);
+  --card-border: rgba(212, 175, 55, 0.35);
+  --text-dark: #2C1810;
+  --text-muted: #6B4E3D;
+  --shadow-gold: 0 10px 30px rgba(212, 175, 55, 0.2);
+  --shadow-card: 0 12px 40px rgba(74, 14, 23, 0.08);
+  --radius-lg: 20px;
+  --radius-md: 14px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--silk-warm);
+  color: var(--text-dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Canvas background */
+#petalsCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* Typography Utility */
+.font-heading {
+  font-family: 'Rozha One', serif;
+}
+
+.font-subheading {
+  font-family: 'Cinzel', serif;
+}
+
+/* Top Shloka Bar */
+.shloka-bar {
+  background: linear-gradient(135deg, var(--deep-maroon), var(--crimson-red));
+  color: var(--primary-gold-light);
+  text-align: center;
+  padding: 10px 15px;
+  font-size: 0.92rem;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--primary-gold);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.music-btn {
+  background: rgba(212, 175, 55, 0.2);
+  border: 1px solid var(--primary-gold);
+  color: var(--primary-gold-light);
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+}
+
+.music-btn:hover {
+  background: var(--primary-gold);
+  color: var(--deep-maroon);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Navigation */
+header {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 253, 245, 0.94);
+  backdrop-filter: blur(12px);
+  z-index: 90;
+  border-bottom: 1px solid var(--card-border);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--bright-saffron), var(--turmeric-yellow));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 10px rgba(255, 125, 0, 0.3);
+}
+
+.logo-text {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--deep-maroon);
+}
+
+.nav-links {
+  display: flex;
+  gap: 22px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--saffron-orange);
+}
+
+.btn-rsvp-nav {
+  background: linear-gradient(135deg, var(--saffron-orange), var(--turmeric-yellow));
+  color: #fff !important;
+  padding: 8px 20px;
+  border-radius: 25px;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(230, 81, 0, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-rsvp-nav:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(230, 81, 0, 0.35);
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(rgba(44, 24, 16, 0.55), rgba(74, 14, 23, 0.7)),
+              url('/assets/marigold_banner.png') center/cover no-repeat;
+  color: #fff;
+  padding: 80px 20px;
+}
+
+.hero-overlay-content {
+  max-width: 800px;
+  z-index: 2;
+  animation: fadeIn 1s ease-out;
+}
+
+.traditional-tag {
+  display: inline-block;
+  background: rgba(212, 175, 55, 0.25);
+  border: 1px solid var(--primary-gold);
+  color: var(--primary-gold-light);
+  font-family: 'Cinzel', serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  line-height: 1.15;
+  color: #FFF8E7;
+  text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  margin-bottom: 12px;
+}
+
+.hero-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 1.35rem;
+  color: var(--primary-gold-light);
+  margin-bottom: 30px;
+}
+
+.hero-date-card {
+  display: inline-flex;
+  gap: 24px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 16px;
+  padding: 16px 32px;
+  margin-bottom: 35px;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-num {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary-gold-light);
+}
+
+.countdown-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.9;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--saffron-orange), var(--turmeric-yellow));
+  color: #fff;
+  border: none;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(230, 81, 0, 0.35);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(230, 81, 0, 0.45);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--primary-gold-light);
+  color: #fff;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--primary-gold-light);
+}
+
+/* Sections */
+.section {
+  padding: 80px 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.section-icon {
+  font-size: 2.2rem;
+  color: var(--saffron-orange);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  color: var(--deep-maroon);
+  margin-bottom: 6px;
+}
+
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+}
+
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.divider-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--primary-gold), transparent);
+}
+
+/* Welcome Grid */
+.welcome-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.welcome-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  box-shadow: var(--shadow-card);
+}
+
+.welcome-image-wrapper {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-gold);
+  border: 3px solid var(--primary-gold);
+}
+
+.welcome-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Schedule */
+.rituals-bg {
+  background: var(--silk-cream);
+  border-top: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.rituals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.ritual-card {
+  background: #fff;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 30px 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ritual-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, var(--saffron-orange), var(--turmeric-yellow));
+}
+
+.ritual-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-gold);
+}
+
+.ritual-time {
+  display: inline-block;
+  background: var(--silk-warm);
+  color: var(--saffron-orange);
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-bottom: 14px;
+  border: 1px solid rgba(230, 81, 0, 0.2);
+}
+
+.venue-card {
+  margin-top: 40px;
+  background: linear-gradient(135deg, var(--deep-maroon), #6B111D);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-shadow: 0 15px 35px rgba(74, 14, 23, 0.2);
+}
+
+/* Blessings Wall */
+.wishes-form-card {
+  background: #fff;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 40px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--deep-maroon);
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #E2D5C3;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: #FFFDF9;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--saffron-orange);
+  box-shadow: 0 0 0 3px rgba(230, 81, 0, 0.15);
+}
+
+.blessings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.blessing-card {
+  background: #fff;
+  border-left: 4px solid var(--saffron-orange);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+}
+
+/* Predictions */
+.predictions-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.prediction-box {
+  background: #fff;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  box-shadow: var(--shadow-card);
+}
+
+.options-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.option-btn {
+  flex: 1;
+  padding: 14px;
+  border: 2px solid #E2D5C3;
+  border-radius: 12px;
+  background: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.option-btn.selected,
+.option-btn:hover {
+  border-color: var(--saffron-orange);
+  background: rgba(255, 125, 0, 0.08);
+  color: var(--saffron-orange);
+}
+
+.stat-bar-outer {
+  height: 10px;
+  background: #EFE6D8;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+.stat-bar-inner {
+  height: 100%;
+  background: linear-gradient(to right, var(--bright-saffron), var(--turmeric-yellow));
+  transition: width 0.8s ease;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(44, 24, 16, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  width: 90%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 36px;
+  position: relative;
+  border: 2px solid var(--primary-gold);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #F4EBE1;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--deep-maroon);
+}
+
+/* Footer */
+footer {
+  background: var(--deep-maroon);
+  color: var(--primary-gold-light);
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 3px solid var(--primary-gold);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .hero-title { font-size: 2.3rem; }
+  .welcome-grid { grid-template-columns: 1fr; }
+  .predictions-container { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+}
