@@ -13,6 +13,7 @@ export default function App() {
   // Modals state
   const [isRsvpOpen, setIsRsvpOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [adminTab, setAdminTab] = useState('rsvps'); // 'rsvps' or 'blessings'
 
   // Data state
   const [blessings, setBlessings] = useState([]);
@@ -169,6 +170,13 @@ export default function App() {
   const handleDeleteRsvp = async (id) => {
     if (window.confirm("Are you sure you want to delete this RSVP entry?")) {
       await db.deleteRsvp(id);
+      await loadData();
+    }
+  };
+
+  const handleDeleteBlessing = async (id) => {
+    if (window.confirm("Are you sure you want to delete this blessing from the wall?")) {
+      await db.deleteBlessing(id);
       await loadData();
     }
   };
@@ -461,7 +469,7 @@ export default function App() {
           <p>May all beings be blessed with peace and health. With love, Swathi & Prasanth Family.</p>
           <div style={{ marginTop: '20px' }}>
             <button onClick={() => setIsAdminOpen(true)} style={{ background: 'transparent', border: '1px solid rgba(212, 175, 55, 0.4)', color: 'var(--primary-gold-light)', padding: '6px 16px', borderRadius: '16px', fontSize: '0.85rem', cursor: 'pointer' }}>
-              🔐 Host Admin RSVP Dashboard & CSV Export
+              🔐 Host Admin Dashboard (RSVPs & Blessings)
             </button>
           </div>
         </div>
@@ -550,59 +558,139 @@ export default function App() {
         </div>
       )}
 
-      {/* Admin Modal */}
+      {/* Admin Modal (With RSVP & Blessings Management Tabs) */}
       {isAdminOpen && (
         <div className="modal-overlay">
           <div className="modal-content" style={{ maxWidth: '800px' }}>
             <button className="modal-close" onClick={() => setIsAdminOpen(false)}>✕</button>
-            <h2 className="font-heading" style={{ color: 'var(--deep-maroon)', marginBottom: '10px' }}>
-              🔐 Host Admin RSVP Dashboard
+            <h2 className="font-heading" style={{ color: 'var(--deep-maroon)', marginBottom: '16px' }}>
+              🔐 Host Admin Control Panel
             </h2>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--silk-warm)', padding: '16px', borderRadius: '12px', marginBottom: '20px' }}>
-              <div>
-                <strong>Total Guests Attending: </strong>
-                <span style={{ color: 'var(--saffron-orange)', fontSize: '1.2rem', fontWeight: 700 }}>{totalGuestsCount}</span>
-                <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginLeft: '8px' }}>({rsvps.length} RSVP submissions)</span>
-              </div>
-              <button onClick={exportRsvpsCsv} className="btn-primary" style={{ padding: '8px 18px', fontSize: '0.85rem' }}>
-                📥 Export RSVPs (CSV)
+            {/* Admin Tabs */}
+            <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', borderBottom: '2px solid var(--silk-warm)', pb: '10px' }}>
+              <button
+                onClick={() => setAdminTab('rsvps')}
+                style={{
+                  padding: '8px 20px',
+                  borderRadius: '20px',
+                  border: 'none',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  background: adminTab === 'rsvps' ? 'var(--saffron-orange)' : 'var(--silk-warm)',
+                  color: adminTab === 'rsvps' ? '#fff' : 'var(--text-dark)'
+                }}
+              >
+                📋 Manage RSVPs ({rsvps.length})
+              </button>
+              <button
+                onClick={() => setAdminTab('blessings')}
+                style={{
+                  padding: '8px 20px',
+                  borderRadius: '20px',
+                  border: 'none',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  background: adminTab === 'blessings' ? 'var(--saffron-orange)' : 'var(--silk-warm)',
+                  color: adminTab === 'blessings' ? '#fff' : 'var(--text-dark)'
+                }}
+              >
+                🙏 Manage Blessings Wall ({blessings.length})
               </button>
             </div>
 
-            <div style={{ maxHeight: '350px', overflowY: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
-                <thead>
-                  <tr style={{ background: 'var(--deep-maroon)', color: 'var(--primary-gold-light)' }}>
-                    <th style={{ padding: '8px' }}>Name</th>
-                    <th style={{ padding: '8px' }}>Phone</th>
-                    <th style={{ padding: '8px' }}>Count</th>
-                    <th style={{ padding: '8px' }}>Diet</th>
-                    <th style={{ padding: '8px' }}>Song Request</th>
-                    <th style={{ padding: '8px', textAlign: 'center' }}>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {rsvps.map((r, idx) => (
-                    <tr key={r.id || idx} style={{ borderBottom: '1px solid #eee' }}>
-                      <td style={{ padding: '8px', fontWeight: 600 }}>{r.name}</td>
-                      <td style={{ padding: '8px' }}>{r.phone}</td>
-                      <td style={{ padding: '8px' }}>{r.count}</td>
-                      <td style={{ padding: '8px', color: 'var(--saffron-orange)', fontWeight: 600 }}>{r.diet}</td>
-                      <td style={{ padding: '8px' }}>{r.song || '—'}</td>
-                      <td style={{ padding: '8px', textAlign: 'center' }}>
-                        <button
-                          onClick={() => handleDeleteRsvp(r.id)}
-                          style={{ background: '#ffebee', color: '#c62828', border: '1px solid #ffcdd2', padding: '4px 8px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 600 }}
-                        >
-                          🗑️ Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            {/* RSVPs Tab */}
+            {adminTab === 'rsvps' && (
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--silk-warm)', padding: '16px', borderRadius: '12px', marginBottom: '20px' }}>
+                  <div>
+                    <strong>Total Guests Attending: </strong>
+                    <span style={{ color: 'var(--saffron-orange)', fontSize: '1.2rem', fontWeight: 700 }}>{totalGuestsCount}</span>
+                  </div>
+                  <button onClick={exportRsvpsCsv} className="btn-primary" style={{ padding: '8px 18px', fontSize: '0.85rem' }}>
+                    📥 Export RSVPs (CSV)
+                  </button>
+                </div>
+
+                <div style={{ maxHeight: '350px', overflowY: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
+                    <thead>
+                      <tr style={{ background: 'var(--deep-maroon)', color: 'var(--primary-gold-light)' }}>
+                        <th style={{ padding: '8px' }}>Name</th>
+                        <th style={{ padding: '8px' }}>Phone</th>
+                        <th style={{ padding: '8px' }}>Count</th>
+                        <th style={{ padding: '8px' }}>Diet</th>
+                        <th style={{ padding: '8px' }}>Song Request</th>
+                        <th style={{ padding: '8px', textAlign: 'center' }}>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rsvps.map((r, idx) => (
+                        <tr key={r.id || idx} style={{ borderBottom: '1px solid #eee' }}>
+                          <td style={{ padding: '8px', fontWeight: 600 }}>{r.name}</td>
+                          <td style={{ padding: '8px' }}>{r.phone}</td>
+                          <td style={{ padding: '8px' }}>{r.count}</td>
+                          <td style={{ padding: '8px', color: 'var(--saffron-orange)', fontWeight: 600 }}>{r.diet}</td>
+                          <td style={{ padding: '8px' }}>{r.song || '—'}</td>
+                          <td style={{ padding: '8px', textAlign: 'center' }}>
+                            <button
+                              onClick={() => handleDeleteRsvp(r.id)}
+                              style={{ background: '#ffebee', color: '#c62828', border: '1px solid #ffcdd2', padding: '4px 8px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 600 }}
+                            >
+                              🗑️ Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Blessings Management Tab */}
+            {adminTab === 'blessings' && (
+              <div>
+                <div style={{ background: 'var(--silk-warm)', padding: '14px 16px', borderRadius: '12px', marginBottom: '20px', fontSize: '0.95rem' }}>
+                  Click 🗑️ next to any blessing to delete it from the website and Supabase database.
+                </div>
+
+                {blessings.length === 0 ? (
+                  <p style={{ textAlign: 'center', color: 'var(--text-muted)', padding: '20px' }}>No blessings posted yet.</p>
+                ) : (
+                  <div style={{ maxHeight: '350px', overflowY: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
+                      <thead>
+                        <tr style={{ background: 'var(--deep-maroon)', color: 'var(--primary-gold-light)' }}>
+                          <th style={{ padding: '8px' }}>Author</th>
+                          <th style={{ padding: '8px' }}>Relationship</th>
+                          <th style={{ padding: '8px' }}>Blessing Text</th>
+                          <th style={{ padding: '8px', textAlign: 'center' }}>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {blessings.map((b, idx) => (
+                          <tr key={b.id || idx} style={{ borderBottom: '1px solid #eee' }}>
+                            <td style={{ padding: '8px', fontWeight: 600 }}>{b.author}</td>
+                            <td style={{ padding: '8px', color: 'var(--saffron-orange)' }}>{b.relation || b.tag || 'Well Wisher'}</td>
+                            <td style={{ padding: '8px', fontStyle: 'italic' }}>"{b.text}"</td>
+                            <td style={{ padding: '8px', textAlign: 'center' }}>
+                              <button
+                                onClick={() => handleDeleteBlessing(b.id)}
+                                style={{ background: '#ffebee', color: '#c62828', border: '1px solid #ffcdd2', padding: '4px 8px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 600 }}
+                              >
+                                🗑️ Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            )}
+
           </div>
         </div>
       )}
