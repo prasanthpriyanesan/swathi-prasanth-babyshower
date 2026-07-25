@@ -7,10 +7,9 @@ export const supabase = (supabaseUrl && supabaseAnonKey)
   ? createClient(supabaseUrl, supabaseAnonKey)
   : null;
 
-// Fallback / Hybrid Storage Service
+// Hybrid Storage Service
 const LOCAL_RSVP_KEY = 'babyshower_online_rsvps';
 const LOCAL_BLESSINGS_KEY = 'babyshower_online_blessings';
-const LOCAL_VOTES_KEY = 'babyshower_online_votes';
 
 export const db = {
   // 1. RSVPs
@@ -40,37 +39,13 @@ export const db = {
     return newEntry;
   },
 
-  // 2. Blessings
+  // 2. Blessings (Starts Clean - No Hardcoded Data)
   async getBlessings() {
     if (supabase) {
       const { data, error } = await supabase.from('blessings').select('*').order('created_at', { ascending: false });
-      if (!error && data && data.length > 0) return data;
+      if (!error && data) return data;
     }
-    const defaultBlessings = [
-      {
-        id: '1',
-        author: "Grandma & Grandpa",
-        relation: "Family Elders",
-        text: "Seemantham & Valaikappu Ashirwadamulu! May divine grace always protect Swathi, Prasanth, and our incoming little blessing.",
-        created_at: new Date().toISOString()
-      },
-      {
-        id: '2',
-        author: "Sundar & Meena Family",
-        relation: "Family Friends",
-        text: "இனிய வளைகாப்பு மற்றும் சீமந்த நல்வாழ்த்துகள்! Wishing Swathi a glowing pregnancy and safe delivery.",
-        created_at: new Date().toISOString()
-      },
-      {
-        id: '3',
-        author: "Kavitha & Srinivas",
-        relation: "Cousins",
-        text: "Hearty congratulations Swathi and Prasanth! Excited to welcome the tiny bundle of joy into our family!",
-        created_at: new Date().toISOString()
-      }
-    ];
-    const stored = JSON.parse(localStorage.getItem(LOCAL_BLESSINGS_KEY) || 'null');
-    return stored || defaultBlessings;
+    return JSON.parse(localStorage.getItem(LOCAL_BLESSINGS_KEY) || '[]');
   },
 
   async addBlessing(blessing) {
@@ -89,28 +64,5 @@ export const db = {
     current.unshift(newEntry);
     localStorage.setItem(LOCAL_BLESSINGS_KEY, JSON.stringify(current));
     return newEntry;
-  },
-
-  // 3. Votes
-  async getVotes() {
-    if (supabase) {
-      const { data } = await supabase.from('votes').select('*');
-      if (data && data.length > 0) {
-        const girlCount = data.filter(v => v.choice === 'Girl').length;
-        const boyCount = data.filter(v => v.choice === 'Boy').length;
-        return { Girl: girlCount, Boy: boyCount };
-      }
-    }
-    return JSON.parse(localStorage.getItem(LOCAL_VOTES_KEY) || '{"Girl": 14, "Boy": 11}');
-  },
-
-  async castVote(choice) {
-    if (supabase) {
-      await supabase.from('votes').insert([{ choice }]);
-    }
-    const votes = await this.getVotes();
-    votes[choice] = (votes[choice] || 0) + 1;
-    localStorage.setItem(LOCAL_VOTES_KEY, JSON.stringify(votes));
-    return votes;
   }
 };

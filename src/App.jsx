@@ -148,7 +148,7 @@ export default function App() {
     triggerConfetti();
     setIsRsvpOpen(false);
     setRsvpForm({ name: '', phone: '', count: '2', diet: 'Pure Veg', song: '' });
-    loadData();
+    await loadData();
     alert(`🪔 Thank you, ${rsvpForm.name}! Your RSVP has been confirmed for Swathi & Prasanth's celebration.`);
   };
 
@@ -162,7 +162,8 @@ export default function App() {
       text: blessingForm.text
     });
     setBlessingForm({ author: '', relation: '', text: '' });
-    loadData();
+    await loadData();
+    triggerConfetti();
     alert("🙏 Thank you! Your blessing has been posted on the wall.");
   };
 
@@ -202,11 +203,11 @@ export default function App() {
       <audio ref={audioRef} loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=indian-flute-ambient-112318.mp3" />
 
       {/* Top Shloka Bar (Tamil & Telugu Invocations) */}
-      <div class="shloka-bar">
+      <div className="shloka-bar">
         <span style={{ fontFamily: "'Cinzel', serif", fontWeight: 700 }}>
           ॥ ஶ்ரீ கணேசாய நமஃ ॥ &nbsp;|&nbsp; ॥ శ్రీ గణేశాయ నమః ॥ &nbsp;|&nbsp; Seemantham & Valaikappu
         </span>
-        <button class="music-btn" onClick={toggleMusic}>
+        <button className="music-btn" onClick={toggleMusic}>
           <span>{isPlayingMusic ? '⏸️' : '🎵'}</span>
           <span>{isPlayingMusic ? 'Pause Flute' : 'Play Ambiance'}</span>
         </button>
@@ -214,19 +215,19 @@ export default function App() {
 
       {/* Header */}
       <header>
-        <div class="container nav-content">
-          <a href="#" class="logo">
-            <div class="logo-icon">🪔</div>
-            <div class="logo-text">Seemantham & Valaikappu</div>
+        <div className="container nav-content">
+          <a href="#" className="logo">
+            <div className="logo-icon">🪔</div>
+            <div className="logo-text">Seemantham & Valaikappu</div>
           </a>
           <nav>
-            <ul class="nav-links">
+            <ul className="nav-links">
               <li><a href="#welcome">Welcome</a></li>
               <li><a href="#details">Event Details</a></li>
               <li><a href="#blessings">Ashirwadam</a></li>
               <li><a href="#registry">Registry</a></li>
               <li>
-                <button class="btn-rsvp-nav" onClick={() => setIsRsvpOpen(true)}>RSVP Now</button>
+                <button className="btn-rsvp-nav" onClick={() => setIsRsvpOpen(true)}>RSVP Now</button>
               </li>
             </ul>
           </nav>
@@ -234,52 +235,52 @@ export default function App() {
       </header>
 
       {/* Hero Section */}
-      <section class="hero" id="hero">
-        <div class="hero-overlay-content">
-          <span class="traditional-tag">✨ Auspicious Celebrations ✨</span>
-          <h1 class="hero-title font-heading">Celebrating New Life & Motherhood</h1>
-          <p class="hero-subtitle">With the Blessings of Elders & Divine Grace, We Invite You to the Seemantham & Valaikappu of</p>
+      <section className="hero" id="hero">
+        <div className="hero-overlay-content">
+          <span className="traditional-tag">✨ Auspicious Celebrations ✨</span>
+          <h1 className="hero-title font-heading">Celebrating New Life & Motherhood</h1>
+          <p className="hero-subtitle">With the Blessings of Elders & Divine Grace, We Invite You to the Seemantham & Valaikappu of</p>
           
           <h2 style={{ fontFamily: "'Rozha One', serif", fontSize: '2.8rem', color: 'var(--turmeric-yellow)', marginBottom: '25px', textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}>
             Swathi & Prasanth
           </h2>
 
           {/* Countdown Card */}
-          <div class="hero-date-card">
-            <div class="countdown-item">
-              <span class="countdown-num">{timeLeft.days}</span>
-              <span class="countdown-label">Days</span>
+          <div className="hero-date-card">
+            <div className="countdown-item">
+              <span className="countdown-num">{timeLeft.days}</span>
+              <span className="countdown-label">Days</span>
             </div>
-            <div class="countdown-item">
-              <span class="countdown-num">{timeLeft.hours < 10 ? '0' + timeLeft.hours : timeLeft.hours}</span>
-              <span class="countdown-label">Hours</span>
+            <div className="countdown-item">
+              <span className="countdown-num">{timeLeft.hours < 10 ? '0' + timeLeft.hours : timeLeft.hours}</span>
+              <span className="countdown-label">Hours</span>
             </div>
-            <div class="countdown-item">
-              <span class="countdown-num">{timeLeft.minutes < 10 ? '0' + timeLeft.minutes : timeLeft.minutes}</span>
-              <span class="countdown-label">Mins</span>
+            <div className="countdown-item">
+              <span className="countdown-num">{timeLeft.minutes < 10 ? '0' + timeLeft.minutes : timeLeft.minutes}</span>
+              <span className="countdown-label">Mins</span>
             </div>
-            <div class="countdown-item">
-              <span class="countdown-num">{timeLeft.seconds < 10 ? '0' + timeLeft.seconds : timeLeft.seconds}</span>
-              <span class="countdown-label">Secs</span>
+            <div className="countdown-item">
+              <span className="countdown-num">{timeLeft.seconds < 10 ? '0' + timeLeft.seconds : timeLeft.seconds}</span>
+              <span className="countdown-label">Secs</span>
             </div>
           </div>
 
-          <div class="hero-actions">
-            <button class="btn-primary" onClick={() => setIsRsvpOpen(true)}>
+          <div className="hero-actions">
+            <button className="btn-primary" onClick={() => setIsRsvpOpen(true)}>
               <span>🪔 Confirm Your Presence (RSVP)</span>
             </button>
-            <a href="#details" class="btn-secondary" style={{ textDecoration: 'none' }}>View Venue & Timing</a>
+            <a href="#details" className="btn-secondary" style={{ textDecoration: 'none' }}>View Venue & Timing</a>
           </div>
         </div>
       </section>
 
       {/* Welcome Section */}
-      <section class="section" id="welcome">
-        <div class="container">
-          <div class="welcome-grid">
-            <div class="welcome-card">
-              <div class="section-icon">🌺</div>
-              <h3 class="font-heading" style={{ fontSize: '1.8rem', color: 'var(--deep-maroon)', marginBottom: '16px' }}>
+      <section className="section" id="welcome">
+        <div className="container">
+          <div className="welcome-grid">
+            <div className="welcome-card">
+              <div className="section-icon">🌺</div>
+              <h3 className="font-heading" style={{ fontSize: '1.8rem', color: 'var(--deep-maroon)', marginBottom: '16px' }}>
                 Seemantham & Valaikappu (சீமந்தம் & வளைகாப்பு)
               </h3>
               <p>
@@ -293,7 +294,7 @@ export default function App() {
               </div>
             </div>
 
-            <div class="welcome-image-wrapper">
+            <div className="welcome-image-wrapper">
               <img src="/assets/traditional_kalash.png" alt="Traditional Kalash and Bangles Motif" />
             </div>
           </div>
@@ -301,16 +302,16 @@ export default function App() {
       </section>
 
       {/* Event Details Section */}
-      <section class="section rituals-bg" id="details">
-        <div class="container">
-          <div class="section-header">
-            <div class="section-icon">📍</div>
-            <h2 class="section-title font-heading">Event Details & Venue</h2>
-            <p class="section-sub font-subheading">Date, Time & Location Information</p>
-            <div class="divider-ornament">
-              <div class="divider-line"></div>
+      <section className="section rituals-bg" id="details">
+        <div className="container">
+          <div className="section-header">
+            <div className="section-icon">📍</div>
+            <h2 className="section-title font-heading">Event Details & Venue</h2>
+            <p className="section-sub font-subheading">Date, Time & Location Information</p>
+            <div className="divider-ornament">
+              <div className="divider-line"></div>
               <span>🌸</span>
-              <div class="divider-line"></div>
+              <div className="divider-line"></div>
             </div>
           </div>
 
@@ -328,15 +329,15 @@ export default function App() {
             </div>
           </div>
 
-          {/* Venue Card with Updated Exact Address */}
-          <div class="venue-card">
+          {/* Venue Card */}
+          <div className="venue-card">
             <div>
               <h3 style={{ fontSize: '1.8rem', color: 'var(--primary-gold-light)', marginBottom: '8px' }}>📍 Event Venue</h3>
               <p style={{ fontSize: '1.15rem', fontWeight: 600, color: '#fff' }}>1737 Sawmill Xing</p>
               <p style={{ fontSize: '1.05rem', opacity: 0.95, color: 'var(--primary-gold-light)' }}>Round Rock, Texas 78665</p>
             </div>
             <div>
-              <a href="https://www.google.com/maps/search/?api=1&query=1737+Sawmill+Xing,+Round+Rock,+Texas+78665" target="_blank" rel="noreferrer" class="btn-primary" style={{ textDecoration: 'none' }}>
+              <a href="https://www.google.com/maps/search/?api=1&query=1737+Sawmill+Xing,+Round+Rock,+Texas+78665" target="_blank" rel="noreferrer" className="btn-primary" style={{ textDecoration: 'none' }}>
                 <span>🗺️ Open in Google Maps</span>
               </a>
             </div>
@@ -345,43 +346,43 @@ export default function App() {
       </section>
 
       {/* Ashirwadam Blessings Board */}
-      <section class="section" id="blessings">
-        <div class="container">
-          <div class="section-header">
-            <div class="section-icon">🙏</div>
-            <h2 class="section-title font-heading">Ashirwadam & Wishes Board</h2>
-            <p class="section-sub">Shower Swathi & Prasanth with Your Heartfelt Blessings</p>
+      <section className="section" id="blessings">
+        <div className="container">
+          <div className="section-header">
+            <div className="section-icon">🙏</div>
+            <h2 className="section-title font-heading">Ashirwadam & Wishes Board</h2>
+            <p className="section-sub">Shower Swathi & Prasanth with Your Heartfelt Blessings</p>
           </div>
 
-          <div class="wishes-form-card">
+          <div className="wishes-form-card">
             <form onSubmit={handleBlessingSubmit}>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                <div class="form-group">
+                <div className="form-group">
                   <label>Your Name / Family Name *</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="e.g. Sundar & Meena Family"
                     value={blessingForm.author}
                     onChange={e => setBlessingForm({ ...blessingForm, author: e.target.value })}
                     required
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label>Relationship / Note</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="e.g. Grandparents / Well Wishers"
                     value={blessingForm.relation}
                     onChange={e => setBlessingForm({ ...blessingForm, relation: e.target.value })}
                   />
                 </div>
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label>Your Blessing / Message *</label>
                 <textarea
-                  class="form-control"
+                  className="form-control"
                   rows="3"
                   placeholder="May divine grace shower health, happiness, and peace..."
                   value={blessingForm.text}
@@ -389,41 +390,51 @@ export default function App() {
                   required
                 />
               </div>
-              <button type="submit" class="btn-primary">
+              <button type="submit" className="btn-primary">
                 <span>✨ Post Blessing to Wall</span>
               </button>
             </form>
           </div>
 
-          <div class="blessings-grid">
-            {blessings.map((b, i) => (
-              <div key={b.id || i} class="blessing-card">
-                <p style={{ fontStyle: 'italic', marginBottom: '14px', fontSize: '1.05rem' }}>"{b.text}"</p>
-                <div style={{ fontWeight: 700, color: 'var(--deep-maroon)', fontSize: '0.95rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span>— {b.author}</span>
-                  <span style={{ fontSize: '0.8rem', background: 'var(--silk-warm)', color: 'var(--saffron-orange)', padding: '2px 8px', borderRadius: '12px' }}>
-                    {b.relation || b.tag || 'Blessing'}
-                  </span>
+          {/* Blessings Display */}
+          {blessings.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '40px', background: '#fff', borderRadius: '16px', border: '2px dashed var(--card-border)' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🌸</div>
+              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+                Be the first to leave an Ashirwadam blessing for Swathi & Prasanth!
+              </p>
+            </div>
+          ) : (
+            <div className="blessings-grid">
+              {blessings.map((b, i) => (
+                <div key={b.id || i} className="blessing-card">
+                  <p style={{ fontStyle: 'italic', marginBottom: '14px', fontSize: '1.05rem' }}>"{b.text}"</p>
+                  <div style={{ fontWeight: 700, color: 'var(--deep-maroon)', fontSize: '0.95rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span>— {b.author}</span>
+                    <span style={{ fontSize: '0.8rem', background: 'var(--silk-warm)', color: 'var(--saffron-orange)', padding: '2px 8px', borderRadius: '12px' }}>
+                      {b.relation || b.tag || 'Blessing'}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
       {/* Registry Section */}
-      <section class="section rituals-bg" id="registry">
-        <div class="container">
-          <div class="section-header">
-            <div class="section-icon">🎁</div>
-            <h2 class="section-title font-heading">Registry & Blessings</h2>
-            <p class="section-sub">Your presence and blessings are our greatest gift!</p>
+      <section className="section rituals-bg" id="registry">
+        <div className="container">
+          <div className="section-header">
+            <div className="section-icon">🎁</div>
+            <h2 className="section-title font-heading">Registry & Blessings</h2>
+            <p className="section-sub">Your presence and blessings are our greatest gift!</p>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
             <div style={{ background: '#fff', padding: '35px 24px', borderRadius: '16px', textAlign: 'center', border: '1px solid var(--card-border)' }}>
               <div style={{ fontSize: '2.8rem', marginBottom: '12px' }}>🎁</div>
-              <h3 class="font-subheading" style={{ color: 'var(--deep-maroon)', marginBottom: '8px' }}>Baby Registry</h3>
+              <h3 className="font-subheading" style={{ color: 'var(--deep-maroon)', marginBottom: '8px' }}>Baby Registry</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '16px' }}>
                 Baby registry details will be updated soon. Stay tuned!
               </p>
@@ -434,11 +445,11 @@ export default function App() {
 
             <div style={{ background: '#fff', padding: '35px 24px', borderRadius: '16px', textAlign: 'center', border: '1px solid var(--card-border)' }}>
               <div style={{ fontSize: '2.8rem', marginBottom: '12px' }}>🪙</div>
-              <h3 class="font-subheading" style={{ color: 'var(--deep-maroon)', marginBottom: '8px' }}>Digital Ashirwadam & Blessings</h3>
+              <h3 className="font-subheading" style={{ color: 'var(--deep-maroon)', marginBottom: '8px' }}>Digital Ashirwadam & Blessings</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '16px' }}>
                 Optional cash blessing details for baby's savings.
               </p>
-              <button class="btn-primary" onClick={() => setIsShagunOpen(true)} style={{ padding: '10px 24px' }}>
+              <button className="btn-primary" onClick={() => setIsShagunOpen(true)} style={{ padding: '10px 24px' }}>
                 View Blessing Info
               </button>
             </div>
@@ -448,8 +459,8 @@ export default function App() {
 
       {/* Footer */}
       <footer>
-        <div class="container">
-          <p class="font-subheading" style={{ fontSize: '1.15rem', marginBottom: '10px', color: 'var(--primary-gold-light)' }}>
+        <div className="container">
+          <p className="font-subheading" style={{ fontSize: '1.15rem', marginBottom: '10px', color: 'var(--primary-gold-light)' }}>
             ॥ సర్వేజనా సుఖినోభవంతు ॥ &nbsp;|&nbsp; ॥ வாழ்க வளமுடன் ॥
           </p>
           <p>May all beings be blessed with peace and health. With love, Swathi & Prasanth Family.</p>
@@ -463,21 +474,21 @@ export default function App() {
 
       {/* RSVP Modal */}
       {isRsvpOpen && (
-        <div class="modal-overlay">
-          <div class="modal-content">
-            <button class="modal-close" onClick={() => setIsRsvpOpen(false)}>✕</button>
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button className="modal-close" onClick={() => setIsRsvpOpen(false)}>✕</button>
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
               <div style={{ fontSize: '2.5rem' }}>🪔</div>
-              <h2 class="font-heading" style={{ color: 'var(--deep-maroon)', fontSize: '2rem' }}>Confirm Your Presence</h2>
+              <h2 className="font-heading" style={{ color: 'var(--deep-maroon)', fontSize: '2rem' }}>Confirm Your Presence</h2>
               <p style={{ color: 'var(--text-muted)' }}>Please RSVP by August 5, 2026 for arrangements.</p>
             </div>
 
             <form onSubmit={handleRsvpSubmit}>
-              <div class="form-group">
+              <div className="form-group">
                 <label>Full Name *</label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   placeholder="e.g. Sundar & Meena"
                   value={rsvpForm.name}
                   onChange={e => setRsvpForm({ ...rsvpForm, name: e.target.value })}
@@ -486,21 +497,21 @@ export default function App() {
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div class="form-group">
+                <div className="form-group">
                   <label>Phone / WhatsApp *</label>
                   <input
                     type="tel"
-                    class="form-control"
+                    className="form-control"
                     placeholder="+91 / +1 ..."
                     value={rsvpForm.phone}
                     onChange={e => setRsvpForm({ ...rsvpForm, phone: e.target.value })}
                     required
                   />
                 </div>
-                <div class="form-group">
+                <div className="form-group">
                   <label>Total Attending *</label>
                   <select
-                    class="form-control"
+                    className="form-control"
                     value={rsvpForm.count}
                     onChange={e => setRsvpForm({ ...rsvpForm, count: e.target.value })}
                   >
@@ -512,10 +523,10 @@ export default function App() {
                 </div>
               </div>
 
-              <div class="form-group">
+              <div className="form-group">
                 <label>Dietary Preference *</label>
                 <select
-                  class="form-control"
+                  className="form-control"
                   value={rsvpForm.diet}
                   onChange={e => setRsvpForm({ ...rsvpForm, diet: e.target.value })}
                 >
@@ -525,18 +536,18 @@ export default function App() {
                 </select>
               </div>
 
-              <div class="form-group">
+              <div className="form-group">
                 <label>Song Request (Optional)</label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   placeholder="e.g. Tamil / Telugu festive songs..."
                   value={rsvpForm.song}
                   onChange={e => setRsvpForm({ ...rsvpForm, song: e.target.value })}
                 />
               </div>
 
-              <button type="submit" class="btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '10px' }}>
+              <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '10px' }}>
                 <span>🙏 Confirm RSVP</span>
               </button>
             </form>
@@ -546,11 +557,11 @@ export default function App() {
 
       {/* Shagun Modal */}
       {isShagunOpen && (
-        <div class="modal-overlay">
-          <div class="modal-content" style={{ textAlign: 'center' }}>
-            <button class="modal-close" onClick={() => setIsShagunOpen(false)}>✕</button>
+        <div className="modal-overlay">
+          <div className="modal-content" style={{ textAlign: 'center' }}>
+            <button className="modal-close" onClick={() => setIsShagunOpen(false)}>✕</button>
             <div style={{ fontSize: '3rem', marginBottom: '10px' }}>🪙</div>
-            <h2 class="font-heading" style={{ color: 'var(--deep-maroon)' }}>Digital Ashirwadam & Blessings</h2>
+            <h2 className="font-heading" style={{ color: 'var(--deep-maroon)' }}>Digital Ashirwadam & Blessings</h2>
             <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
               For family & friends wishing to gift Digital Cash Blessings for baby's savings:
             </p>
@@ -561,7 +572,7 @@ export default function App() {
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Account Name: Swathi & Prasanth Baby Fund</p>
             </div>
 
-            <button class="btn-primary" onClick={() => setIsShagunOpen(false)} style={{ margin: '0 auto' }}>
+            <button className="btn-primary" onClick={() => setIsShagunOpen(false)} style={{ margin: '0 auto' }}>
               Done / Close
             </button>
           </div>
@@ -570,10 +581,10 @@ export default function App() {
 
       {/* Admin Modal */}
       {isAdminOpen && (
-        <div class="modal-overlay">
-          <div class="modal-content" style={{ maxWidth: '750px' }}>
-            <button class="modal-close" onClick={() => setIsAdminOpen(false)}>✕</button>
-            <h2 class="font-heading" style={{ color: 'var(--deep-maroon)', marginBottom: '10px' }}>
+        <div className="modal-overlay">
+          <div className="modal-content" style={{ maxWidth: '750px' }}>
+            <button className="modal-close" onClick={() => setIsAdminOpen(false)}>✕</button>
+            <h2 className="font-heading" style={{ color: 'var(--deep-maroon)', marginBottom: '10px' }}>
               🔐 Host Admin RSVP Dashboard
             </h2>
 
@@ -583,7 +594,7 @@ export default function App() {
                 <span style={{ color: 'var(--saffron-orange)', fontSize: '1.2rem', fontWeight: 700 }}>{totalGuestsCount}</span>
                 <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginLeft: '8px' }}>({rsvps.length} RSVP submissions)</span>
               </div>
-              <button onClick={exportRsvpsCsv} class="btn-primary" style={{ padding: '8px 18px', fontSize: '0.85rem' }}>
+              <button onClick={exportRsvpsCsv} className="btn-primary" style={{ padding: '8px 18px', fontSize: '0.85rem' }}>
                 📥 Export RSVPs (CSV)
               </button>
             </div>
