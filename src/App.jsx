@@ -9,6 +9,7 @@ export default function App() {
   // Modals state
   const [isRsvpOpen, setIsRsvpOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [adminTab, setAdminTab] = useState('rsvps'); // 'rsvps' or 'blessings'
   const [clickCount, setClickCount] = useState(0);
 
@@ -242,7 +243,7 @@ export default function App() {
       )}
 
       {/* Top Shloka Bar (Tamil & Telugu Invocations) */}
-      <div className="shloka-bar" style={{ justifyContent: 'center' }}>
+      <div className="shloka-bar">
         <span style={{ fontFamily: "'Cinzel', serif", fontWeight: 700 }}>
           ॥ ஶ்ரீ கணேசாய நமஃ ॥ &nbsp;|&nbsp; ॥ శ్రీ గణేశాయ నమః ॥ &nbsp;|&nbsp; Seemantham/Valaikappu
         </span>
@@ -266,8 +267,46 @@ export default function App() {
               </li>
             </ul>
           </nav>
+          <button className="mobile-menu-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            {isMobileMenuOpen ? '✕' : '☰'}
+          </button>
+        </div>
+
+        {/* Mobile Sticky Horizontal Quick-Nav Pill Bar */}
+        <div className="mobile-quick-nav">
+          <a href="#welcome" className="nav-pill">🌺 Welcome</a>
+          <a href="#details" className="nav-pill">📍 Details</a>
+          <a href="#blessings" className="nav-pill">🙏 Ashirwadam</a>
+          <a href="#registry" className="nav-pill">🎁 Registry</a>
+          <button onClick={() => setIsRsvpOpen(true)} className="nav-pill" style={{ background: 'var(--saffron-orange)', color: '#fff', border: 'none' }}>
+            🪔 RSVP
+          </button>
         </div>
       </header>
+
+      {/* Mobile Drawer Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="modal-overlay" style={{ zindex: 150 }} onClick={() => setIsMobileMenuOpen(false)}>
+          <div className="modal-content" style={{ maxWidth: '320px', padding: '24px' }} onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setIsMobileMenuOpen(false)}>✕</button>
+            <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+              <div style={{ fontSize: '2rem' }}>🪔</div>
+              <h3 className="font-heading" style={{ color: 'var(--deep-maroon)' }}>Navigation</h3>
+            </div>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '16px', fontSize: '1.1rem', fontWeight: 600 }}>
+              <li><a href="#welcome" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'var(--text-dark)' }}>🌺 Welcome</a></li>
+              <li><a href="#details" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'var(--text-dark)' }}>📍 Event Details</a></li>
+              <li><a href="#blessings" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'var(--text-dark)' }}>🙏 Ashirwadam Board</a></li>
+              <li><a href="#registry" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', color: 'var(--text-dark)' }}>🎁 Baby Registry</a></li>
+              <li style={{ marginTop: '10px' }}>
+                <button className="btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => { setIsMobileMenuOpen(false); setIsRsvpOpen(true); }}>
+                  🪔 Confirm RSVP
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="hero" id="hero">

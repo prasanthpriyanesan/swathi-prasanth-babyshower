@@ -121,29 +121,10 @@ body {
   letter-spacing: 1px;
   border-bottom: 2px solid var(--primary-gold);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: relative;
   z-index: 10;
-}
-
-.music-btn {
-  background: rgba(212, 175, 55, 0.2);
-  border: 1px solid var(--primary-gold);
-  color: var(--primary-gold-light);
-  padding: 6px 14px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.3s ease;
-}
-
-.music-btn:hover {
-  background: var(--primary-gold);
-  color: var(--deep-maroon);
 }
 
 .container {
@@ -152,11 +133,11 @@ body {
   padding: 0 20px;
 }
 
-/* Navigation */
+/* Header & Nav */
 header {
   position: sticky;
   top: 0;
-  background: rgba(255, 253, 245, 0.94);
+  background: rgba(255, 253, 245, 0.96);
   backdrop-filter: blur(12px);
   z-index: 90;
   border-bottom: 1px solid var(--card-border);
@@ -167,7 +148,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 0;
+  padding: 12px 0;
 }
 
 .logo {
@@ -231,6 +212,57 @@ header {
 .btn-rsvp-nav:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(230, 81, 0, 0.35);
+}
+
+/* Mobile Quick Navigation Pill Bar */
+.mobile-quick-nav {
+  display: none;
+  background: var(--silk-cream);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--card-border);
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  gap: 10px;
+}
+
+.mobile-quick-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid var(--card-border);
+  color: var(--deep-maroon);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.nav-pill:active {
+  background: var(--saffron-orange);
+  color: #fff;
+}
+
+/* Mobile Hamburger Toggle */
+.mobile-menu-toggle {
+  display: none;
+  background: var(--silk-warm);
+  border: 1px solid var(--card-border);
+  color: var(--deep-maroon);
+  font-size: 1.3rem;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 /* Hero Section with Banana Leaf Backdrop */
@@ -601,4 +633,8 @@ footer {
   .hero-title { font-size: 2.3rem; }
   .welcome-grid { grid-template-columns: 1fr; }
   .nav-links { display: none; }
+  .mobile-quick-nav { display: flex; }
+  .mobile-menu-toggle { display: flex; }
+  .hero-date-card { padding: 12px 20px; gap: 14px; }
+  .countdown-num { font-size: 1.6rem; }
 }
