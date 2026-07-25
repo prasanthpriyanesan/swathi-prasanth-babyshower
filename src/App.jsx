@@ -13,13 +13,8 @@ export default function App() {
   // Modals state
   const [isRsvpOpen, setIsRsvpOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
-  const [isPasscodeModalOpen, setIsPasscodeModalOpen] = useState(false);
-  const [adminPasscode, setAdminPasscode] = useState('');
-  const [passcodeError, setPasscodeError] = useState(false);
   const [adminTab, setAdminTab] = useState('rsvps'); // 'rsvps' or 'blessings'
-
-  // Host Admin Secret Passcode (Default: 2026)
-  const HOST_PASSCODE = "2026";
+  const [clickCount, setClickCount] = useState(0);
 
   // Data state
   const [blessings, setBlessings] = useState([]);
@@ -29,11 +24,17 @@ export default function App() {
   const [rsvpForm, setRsvpForm] = useState({ name: '', phone: '', count: '2', diet: 'Pure Veg', song: '' });
   const [blessingForm, setBlessingForm] = useState({ author: '', relation: '', text: '' });
 
-  // Fetch initial data
+  // Fetch initial data & check for Secret Admin URL
   useEffect(() => {
     loadData();
     initCountdown();
     initPetalsCanvas();
+
+    // Check Secret URL: ?admin=true or ?host=true
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('admin') === 'true' || params.get('host') === 'true') {
+      setIsAdminOpen(true);
+    }
   }, []);
 
   const loadData = async () => {
@@ -42,6 +43,16 @@ export default function App() {
 
     setBlessings(loadedBlessings);
     setRsvps(loadedRsvps);
+  };
+
+  // Secret Triple-Click Gesture on Footer Symbol
+  const handleSecretFooterClick = () => {
+    const nextCount = clickCount + 1;
+    setClickCount(nextCount);
+    if (nextCount >= 3) {
+      setIsAdminOpen(true);
+      setClickCount(0);
+    }
   };
 
   // Countdown
@@ -143,23 +154,6 @@ export default function App() {
       origin: { y: 0.6 },
       colors: ['#FF8C00', '#FFB300', '#D4AF37', '#8B0000']
     });
-  };
-
-  // Admin Access Control
-  const handleOpenAdminPrompt = () => {
-    setAdminPasscode('');
-    setPasscodeError(false);
-    setIsPasscodeModalOpen(true);
-  };
-
-  const handleVerifyPasscode = (e) => {
-    e.preventDefault();
-    if (adminPasscode === HOST_PASSCODE) {
-      setIsPasscodeModalOpen(false);
-      setIsAdminOpen(true);
-    } else {
-      setPasscodeError(true);
-    }
   };
 
   // Form Submissions & Deletions
@@ -486,55 +480,17 @@ export default function App() {
       {/* Footer */}
       <footer>
         <div className="container">
-          <p className="font-subheading" style={{ fontSize: '1.15rem', marginBottom: '10px', color: 'var(--primary-gold-light)' }}>
+          <p
+            className="font-subheading"
+            onClick={handleSecretFooterClick}
+            style={{ fontSize: '1.15rem', marginBottom: '10px', color: 'var(--primary-gold-light)', cursor: 'pointer', userSelect: 'none' }}
+            title="Blessings"
+          >
             ॥ సర్వేజనా సుఖినోభవంతు ॥ &nbsp;|&nbsp; ॥ வாழ்க வளமுடன் ॥
           </p>
           <p>May all beings be blessed with peace and health. With love, Swathi & Prasanth Family.</p>
-          <div style={{ marginTop: '20px' }}>
-            <button onClick={handleOpenAdminPrompt} style={{ background: 'transparent', border: '1px solid rgba(212, 175, 55, 0.4)', color: 'var(--primary-gold-light)', padding: '6px 16px', borderRadius: '16px', fontSize: '0.85rem', cursor: 'pointer' }}>
-              🔐 Host Admin Control Panel
-            </button>
-          </div>
         </div>
       </footer>
-
-      {/* Passcode Lock Modal */}
-      {isPasscodeModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content" style={{ maxWidth: '420px', textAlign: 'center' }}>
-            <button className="modal-close" onClick={() => setIsPasscodeModalOpen(false)}>✕</button>
-            <div style={{ fontSize: '2.8rem', marginBottom: '8px' }}>🔐</div>
-            <h2 className="font-heading" style={{ color: 'var(--deep-maroon)' }}>Host Admin Lock</h2>
-            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '20px' }}>
-              Enter Host PIN passcode to access RSVP management & delete options:
-            </p>
-
-            <form onSubmit={handleVerifyPasscode}>
-              <div className="form-group">
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Enter Host PIN Passcode..."
-                  value={adminPasscode}
-                  onChange={e => { setAdminPasscode(e.target.value); setPasscodeError(false); }}
-                  style={{ textAlign: 'center', fontSize: '1.2rem', letterSpacing: '4px' }}
-                  required
-                />
-              </div>
-
-              {passcodeError && (
-                <p style={{ color: '#c62828', fontSize: '0.85rem', fontWeight: 600, marginBottom: '14px' }}>
-                  ❌ Incorrect Passcode. Please try again!
-                </p>
-              )}
-
-              <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
-                <span>Unlock Control Panel</span>
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
 
       {/* RSVP Modal */}
       {isRsvpOpen && (
@@ -619,13 +575,13 @@ export default function App() {
         </div>
       )}
 
-      {/* Admin Modal (With RSVP & Blessings Management Tabs) */}
+      {/* Secret Host Admin Control Panel */}
       {isAdminOpen && (
         <div className="modal-overlay">
           <div className="modal-content" style={{ maxWidth: '800px' }}>
             <button className="modal-close" onClick={() => setIsAdminOpen(false)}>✕</button>
             <h2 className="font-heading" style={{ color: 'var(--deep-maroon)', marginBottom: '16px' }}>
-              🔐 Host Admin Control Panel
+              🔐 Host Secret Control Panel
             </h2>
 
             {/* Admin Tabs */}
