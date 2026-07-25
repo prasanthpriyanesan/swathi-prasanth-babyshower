@@ -178,7 +178,7 @@ header {
   box-shadow: 0 6px 18px rgba(230, 81, 0, 0.35);
 }
 
-/* Hero */
+/* Hero Section with New Backdrop Image */
 .hero {
   position: relative;
   min-height: 85vh;
@@ -186,8 +186,8 @@ header {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(rgba(44, 24, 16, 0.55), rgba(74, 14, 23, 0.7)),
-              url('/assets/marigold_banner.png') center/cover no-repeat;
+  background: linear-gradient(rgba(44, 24, 16, 0.6), rgba(74, 14, 23, 0.72)),
+              url('/assets/traditional_silk_backdrop.png') center/cover no-repeat;
   color: #fff;
   padding: 80px 20px;
 }
@@ -376,17 +376,11 @@ header {
   display: block;
 }
 
-/* Schedule */
+/* Schedule / Rituals */
 .rituals-bg {
   background: var(--silk-cream);
   border-top: 1px solid var(--card-border);
   border-bottom: 1px solid var(--card-border);
-}
-
-.rituals-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
 }
 
 .ritual-card {
@@ -492,59 +486,6 @@ header {
   box-shadow: 0 6px 20px rgba(0,0,0,0.04);
 }
 
-/* Predictions */
-.predictions-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-}
-
-.prediction-box {
-  background: #fff;
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-lg);
-  padding: 30px;
-  box-shadow: var(--shadow-card);
-}
-
-.options-row {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 20px;
-}
-
-.option-btn {
-  flex: 1;
-  padding: 14px;
-  border: 2px solid #E2D5C3;
-  border-radius: 12px;
-  background: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.option-btn.selected,
-.option-btn:hover {
-  border-color: var(--saffron-orange);
-  background: rgba(255, 125, 0, 0.08);
-  color: var(--saffron-orange);
-}
-
-.stat-bar-outer {
-  height: 10px;
-  background: #EFE6D8;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-top: 6px;
-}
-
-.stat-bar-inner {
-  height: 100%;
-  background: linear-gradient(to right, var(--bright-saffron), var(--turmeric-yellow));
-  transition: width 0.8s ease;
-}
-
 /* Modal */
 .modal-overlay {
   position: fixed;
@@ -604,6 +545,5 @@ footer {
 @media (max-width: 768px) {
   .hero-title { font-size: 2.3rem; }
   .welcome-grid { grid-template-columns: 1fr; }
-  .predictions-container { grid-template-columns: 1fr; }
   .nav-links { display: none; }
 }

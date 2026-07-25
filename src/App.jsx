@@ -12,7 +12,6 @@ export default function App() {
 
   // Modals state
   const [isRsvpOpen, setIsRsvpOpen] = useState(false);
-  const [isShagunOpen, setIsShagunOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
 
   // Data state
@@ -149,7 +148,7 @@ export default function App() {
     setIsRsvpOpen(false);
     setRsvpForm({ name: '', phone: '', count: '2', diet: 'Pure Veg', song: '' });
     await loadData();
-    alert(`🪔 Thank you, ${rsvpForm.name}! Your RSVP has been confirmed for Swathi & Prasanth's celebration.`);
+    alert(`🪔 Thank you, ${rsvpForm.name}! Your RSVP has been confirmed for Swathi's celebration.`);
   };
 
   const handleBlessingSubmit = async (e) => {
@@ -187,7 +186,7 @@ export default function App() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "Swathi_Prasanth_RSVPs.csv");
+    link.setAttribute("download", "Swathi_Seemantham_RSVPs.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -205,7 +204,7 @@ export default function App() {
       {/* Top Shloka Bar (Tamil & Telugu Invocations) */}
       <div className="shloka-bar">
         <span style={{ fontFamily: "'Cinzel', serif", fontWeight: 700 }}>
-          ॥ ஶ்ரீ கணேசாய நமஃ ॥ &nbsp;|&nbsp; ॥ శ్రీ గణేశాయ నమః ॥ &nbsp;|&nbsp; Seemantham & Valaikappu
+          ॥ ஶ்ரீ கணேசாய நமஃ ॥ &nbsp;|&nbsp; ॥ శ్రీ గణేశాయ నమః ॥ &nbsp;|&nbsp; Seemantham/Valaikappu
         </span>
         <button className="music-btn" onClick={toggleMusic}>
           <span>{isPlayingMusic ? '⏸️' : '🎵'}</span>
@@ -218,7 +217,7 @@ export default function App() {
         <div className="container nav-content">
           <a href="#" className="logo">
             <div className="logo-icon">🪔</div>
-            <div className="logo-text">Seemantham & Valaikappu</div>
+            <div className="logo-text">Seemantham/Valaikappu</div>
           </a>
           <nav>
             <ul className="nav-links">
@@ -239,10 +238,10 @@ export default function App() {
         <div className="hero-overlay-content">
           <span className="traditional-tag">✨ Auspicious Celebrations ✨</span>
           <h1 className="hero-title font-heading">Celebrating New Life & Motherhood</h1>
-          <p className="hero-subtitle">With the Blessings of Elders & Divine Grace, We Invite You to the Seemantham & Valaikappu of</p>
+          <p className="hero-subtitle">With the Blessings of Elders & Divine Grace, We Warmly Invite You to the Seemantham/Valaikappu of</p>
           
-          <h2 style={{ fontFamily: "'Rozha One', serif", fontSize: '2.8rem', color: 'var(--turmeric-yellow)', marginBottom: '25px', textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}>
-            Swathi & Prasanth
+          <h2 style={{ fontFamily: "'Rozha One', serif", fontSize: '3rem', color: 'var(--turmeric-yellow)', marginBottom: '25px', textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}>
+            Swathi
           </h2>
 
           {/* Countdown Card */}
@@ -281,16 +280,16 @@ export default function App() {
             <div className="welcome-card">
               <div className="section-icon">🌺</div>
               <h3 className="font-heading" style={{ fontSize: '1.8rem', color: 'var(--deep-maroon)', marginBottom: '16px' }}>
-                Seemantham & Valaikappu (சீமந்தம் & வளைகாப்பு)
+                Seemantham/Valaikappu (சீமந்தம்/வளைகாப்பு)
               </h3>
               <p>
-                <strong>Seemantham</strong> (తెలుగు) and <strong>Valaikappu</strong> (தமிழ்) are time-honored traditional celebrations showering the mother-to-be with love, glass bangles, turmeric, kumkum, and elder blessings.
+                <strong>Seemantham</strong> (తెలుగు) / <strong>Valaikappu</strong> (தமிழ்) is a time-honored traditional celebration showering the mother-to-be, <strong>Swathi</strong>, with love, glass bangles, turmeric, kumkum, and elder blessings.
               </p>
               <p>
-                We warmly welcome our beloved family and friends to join us in bestowing Ashirwadam, chanting sacred prayers, and sharing a festive celebration together.
+                We warmly welcome our beloved family and friends to join us in bestowing Ashirwadam, chanting sacred prayers, and celebrating this joyful milestone together.
               </p>
               <div style={{ marginTop: '20px', fontWeight: 700, color: 'var(--saffron-orange)', fontSize: '1.1rem' }}>
-                🗓️ Sunday, August 16, 2026 &nbsp;|&nbsp; 🕒 4:00 PM – 6:00 PM
+                🗓️ Sunday, August 16, 2026 &nbsp;|&nbsp; 🕒 Starts at 4:00 PM
               </div>
             </div>
 
@@ -324,8 +323,8 @@ export default function App() {
 
             <div className="ritual-card" style={{ padding: '35px 24px' }}>
               <span className="ritual-time">🕒 Event Timings</span>
-              <h3 className="font-subheading" style={{ color: 'var(--deep-maroon)', fontSize: '1.4rem', margin: '10px 0' }}>4:00 PM – 6:00 PM</h3>
-              <p style={{ color: 'var(--text-muted)' }}>Evening Ceremony & High Tea / Refreshments</p>
+              <h3 className="font-subheading" style={{ color: 'var(--deep-maroon)', fontSize: '1.4rem', margin: '10px 0' }}>Starts at 4:00 PM</h3>
+              <p style={{ color: 'var(--text-muted)' }}>Refreshments followed by Dinner</p>
             </div>
           </div>
 
@@ -351,7 +350,7 @@ export default function App() {
           <div className="section-header">
             <div className="section-icon">🙏</div>
             <h2 className="section-title font-heading">Ashirwadam & Wishes Board</h2>
-            <p className="section-sub">Shower Swathi & Prasanth with Your Heartfelt Blessings</p>
+            <p className="section-sub">Shower Swathi with Your Heartfelt Blessings</p>
           </div>
 
           <div className="wishes-form-card">
@@ -401,7 +400,7 @@ export default function App() {
             <div style={{ textAlign: 'center', padding: '40px', background: '#fff', borderRadius: '16px', border: '2px dashed var(--card-border)' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🌸</div>
               <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-                Be the first to leave an Ashirwadam blessing for Swathi & Prasanth!
+                Be the first to leave an Ashirwadam blessing for Swathi!
               </p>
             </div>
           ) : (
@@ -427,11 +426,11 @@ export default function App() {
         <div className="container">
           <div className="section-header">
             <div className="section-icon">🎁</div>
-            <h2 className="section-title font-heading">Registry & Blessings</h2>
+            <h2 className="section-title font-heading">Baby Registry</h2>
             <p className="section-sub">Your presence and blessings are our greatest gift!</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+          <div style={{ maxWidth: '500px', margin: '0 auto' }}>
             <div style={{ background: '#fff', padding: '35px 24px', borderRadius: '16px', textAlign: 'center', border: '1px solid var(--card-border)' }}>
               <div style={{ fontSize: '2.8rem', marginBottom: '12px' }}>🎁</div>
               <h3 className="font-subheading" style={{ color: 'var(--deep-maroon)', marginBottom: '8px' }}>Baby Registry</h3>
@@ -440,17 +439,6 @@ export default function App() {
               </p>
               <button className="btn-secondary" style={{ background: 'var(--silk-warm)', color: 'var(--text-dark)', border: '1px solid var(--card-border)', cursor: 'default' }}>
                 Registry Coming Soon
-              </button>
-            </div>
-
-            <div style={{ background: '#fff', padding: '35px 24px', borderRadius: '16px', textAlign: 'center', border: '1px solid var(--card-border)' }}>
-              <div style={{ fontSize: '2.8rem', marginBottom: '12px' }}>🪙</div>
-              <h3 className="font-subheading" style={{ color: 'var(--deep-maroon)', marginBottom: '8px' }}>Digital Ashirwadam & Blessings</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '16px' }}>
-                Optional cash blessing details for baby's savings.
-              </p>
-              <button className="btn-primary" onClick={() => setIsShagunOpen(true)} style={{ padding: '10px 24px' }}>
-                View Blessing Info
               </button>
             </div>
           </div>
@@ -463,7 +451,7 @@ export default function App() {
           <p className="font-subheading" style={{ fontSize: '1.15rem', marginBottom: '10px', color: 'var(--primary-gold-light)' }}>
             ॥ సర్వేజనా సుఖినోభవంతు ॥ &nbsp;|&nbsp; ॥ வாழ்க வளமுடன் ॥
           </p>
-          <p>May all beings be blessed with peace and health. With love, Swathi & Prasanth Family.</p>
+          <p>May all beings be blessed with peace and health. With love, Swathi & Family.</p>
           <div style={{ marginTop: '20px' }}>
             <button onClick={() => setIsAdminOpen(true)} style={{ background: 'transparent', border: '1px solid rgba(212, 175, 55, 0.4)', color: 'var(--primary-gold-light)', padding: '6px 16px', borderRadius: '16px', fontSize: '0.85rem', cursor: 'pointer' }}>
               🔐 Host Admin RSVP Dashboard & CSV Export
@@ -551,30 +539,6 @@ export default function App() {
                 <span>🙏 Confirm RSVP</span>
               </button>
             </form>
-          </div>
-        </div>
-      )}
-
-      {/* Shagun Modal */}
-      {isShagunOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content" style={{ textAlign: 'center' }}>
-            <button className="modal-close" onClick={() => setIsShagunOpen(false)}>✕</button>
-            <div style={{ fontSize: '3rem', marginBottom: '10px' }}>🪙</div>
-            <h2 className="font-heading" style={{ color: 'var(--deep-maroon)' }}>Digital Ashirwadam & Blessings</h2>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '20px' }}>
-              For family & friends wishing to gift Digital Cash Blessings for baby's savings:
-            </p>
-
-            <div style={{ background: 'var(--silk-warm)', border: '2px dashed var(--primary-gold)', padding: '20px', borderRadius: '16px', marginBottom: '20px' }}>
-              <p style={{ fontWeight: 700, color: 'var(--saffron-orange)', fontSize: '1.1rem' }}>UPI ID / Zelle / Venmo</p>
-              <p style={{ fontSize: '1.2rem', fontWeight: 700, margin: '8px 0', color: 'var(--deep-maroon)' }}>ashirwadam@upi &nbsp;|&nbsp; +1 (555) 019-2831</p>
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Account Name: Swathi & Prasanth Baby Fund</p>
-            </div>
-
-            <button className="btn-primary" onClick={() => setIsShagunOpen(false)} style={{ margin: '0 auto' }}>
-              Done / Close
-            </button>
           </div>
         </div>
       )}
