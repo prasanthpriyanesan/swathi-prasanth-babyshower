@@ -148,7 +148,7 @@ export default function App() {
     setIsRsvpOpen(false);
     setRsvpForm({ name: '', phone: '', count: '2', diet: 'Pure Veg', song: '' });
     await loadData();
-    alert(`🪔 Thank you, ${rsvpForm.name}! Your RSVP has been confirmed for Swathi's celebration.`);
+    alert(`🪔 Thank you, ${rsvpForm.name}! Your RSVP has been confirmed for Swathi & Prasanth's celebration.`);
   };
 
   const handleBlessingSubmit = async (e) => {
@@ -186,7 +186,7 @@ export default function App() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "Swathi_Seemantham_RSVPs.csv");
+    link.setAttribute("download", "Swathi_Prasanth_Seemantham_RSVPs.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -344,13 +344,13 @@ export default function App() {
         </div>
       </section>
 
-      {/* Ashirwadam Blessings Board */}
+      {/* Ashirwadam Blessings Board (Swathi & Prasanth) */}
       <section className="section" id="blessings">
         <div className="container">
           <div className="section-header">
             <div className="section-icon">🙏</div>
             <h2 className="section-title font-heading">Ashirwadam & Wishes Board</h2>
-            <p className="section-sub">Shower Swathi with Your Heartfelt Blessings</p>
+            <p className="section-sub">Shower Swathi & Prasanth with Your Heartfelt Blessings</p>
           </div>
 
           <div className="wishes-form-card">
@@ -400,7 +400,7 @@ export default function App() {
             <div style={{ textAlign: 'center', padding: '40px', background: '#fff', borderRadius: '16px', border: '2px dashed var(--card-border)' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🌸</div>
               <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-                Be the first to leave an Ashirwadam blessing for Swathi!
+                Be the first to leave an Ashirwadam blessing for Swathi & Prasanth!
               </p>
             </div>
           ) : (
@@ -451,7 +451,7 @@ export default function App() {
           <p className="font-subheading" style={{ fontSize: '1.15rem', marginBottom: '10px', color: 'var(--primary-gold-light)' }}>
             ॥ సర్వేజనా సుఖినోభవంతు ॥ &nbsp;|&nbsp; ॥ வாழ்க வளமுடன் ॥
           </p>
-          <p>May all beings be blessed with peace and health. With love, Swathi & Family.</p>
+          <p>May all beings be blessed with peace and health. With love, Swathi & Prasanth Family.</p>
           <div style={{ marginTop: '20px' }}>
             <button onClick={() => setIsAdminOpen(true)} style={{ background: 'transparent', border: '1px solid rgba(212, 175, 55, 0.4)', color: 'var(--primary-gold-light)', padding: '6px 16px', borderRadius: '16px', fontSize: '0.85rem', cursor: 'pointer' }}>
               🔐 Host Admin RSVP Dashboard & CSV Export
