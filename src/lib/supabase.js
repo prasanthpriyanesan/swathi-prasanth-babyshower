@@ -45,7 +45,7 @@ export const db = {
       if (error) console.error('Supabase delete RSVP error:', error);
     }
     const current = JSON.parse(localStorage.getItem(LOCAL_RSVP_KEY) || '[]');
-    const updated = current.filter(r => r.id !== id);
+    const updated = current.filter(r => String(r.id) !== String(id));
     localStorage.setItem(LOCAL_RSVP_KEY, JSON.stringify(updated));
   },
 
@@ -82,7 +82,7 @@ export const db = {
       if (error) console.error('Supabase delete blessing error:', error);
     }
     const current = JSON.parse(localStorage.getItem(LOCAL_BLESSINGS_KEY) || '[]');
-    const updated = current.filter(b => b.id !== id);
+    const updated = current.filter(b => String(b.id) !== String(id));
     localStorage.setItem(LOCAL_BLESSINGS_KEY, JSON.stringify(updated));
   }
 };
