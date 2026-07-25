@@ -39,7 +39,17 @@ export const db = {
     return newEntry;
   },
 
-  // 2. Blessings (Starts Clean - No Hardcoded Data)
+  async deleteRsvp(id) {
+    if (supabase) {
+      const { error } = await supabase.from('rsvps').delete().eq('id', id);
+      if (error) console.error('Supabase delete RSVP error:', error);
+    }
+    const current = JSON.parse(localStorage.getItem(LOCAL_RSVP_KEY) || '[]');
+    const updated = current.filter(r => r.id !== id);
+    localStorage.setItem(LOCAL_RSVP_KEY, JSON.stringify(updated));
+  },
+
+  // 2. Blessings
   async getBlessings() {
     if (supabase) {
       const { data, error } = await supabase.from('blessings').select('*').order('created_at', { ascending: false });
@@ -64,5 +74,15 @@ export const db = {
     current.unshift(newEntry);
     localStorage.setItem(LOCAL_BLESSINGS_KEY, JSON.stringify(current));
     return newEntry;
+  },
+
+  async deleteBlessing(id) {
+    if (supabase) {
+      const { error } = await supabase.from('blessings').delete().eq('id', id);
+      if (error) console.error('Supabase delete blessing error:', error);
+    }
+    const current = JSON.parse(localStorage.getItem(LOCAL_BLESSINGS_KEY) || '[]');
+    const updated = current.filter(b => b.id !== id);
+    localStorage.setItem(LOCAL_BLESSINGS_KEY, JSON.stringify(updated));
   }
 };

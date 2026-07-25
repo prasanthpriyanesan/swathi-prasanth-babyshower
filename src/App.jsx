@@ -138,7 +138,7 @@ export default function App() {
     });
   };
 
-  // Form Submissions
+  // Form Submissions & Deletions
   const handleRsvpSubmit = async (e) => {
     e.preventDefault();
     if (!rsvpForm.name || !rsvpForm.phone) return;
@@ -164,6 +164,13 @@ export default function App() {
     await loadData();
     triggerConfetti();
     alert("🙏 Thank you! Your blessing has been posted on the wall.");
+  };
+
+  const handleDeleteRsvp = async (id) => {
+    if (window.confirm("Are you sure you want to delete this RSVP entry?")) {
+      await db.deleteRsvp(id);
+      await loadData();
+    }
   };
 
   // Export CSV for Host
@@ -344,7 +351,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Ashirwadam Blessings Board (Swathi & Prasanth) */}
+      {/* Ashirwadam Blessings Board */}
       <section className="section" id="blessings">
         <div className="container">
           <div className="section-header">
@@ -546,7 +553,7 @@ export default function App() {
       {/* Admin Modal */}
       {isAdminOpen && (
         <div className="modal-overlay">
-          <div className="modal-content" style={{ maxWidth: '750px' }}>
+          <div className="modal-content" style={{ maxWidth: '800px' }}>
             <button className="modal-close" onClick={() => setIsAdminOpen(false)}>✕</button>
             <h2 className="font-heading" style={{ color: 'var(--deep-maroon)', marginBottom: '10px' }}>
               🔐 Host Admin RSVP Dashboard
@@ -572,6 +579,7 @@ export default function App() {
                     <th style={{ padding: '8px' }}>Count</th>
                     <th style={{ padding: '8px' }}>Diet</th>
                     <th style={{ padding: '8px' }}>Song Request</th>
+                    <th style={{ padding: '8px', textAlign: 'center' }}>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -582,6 +590,14 @@ export default function App() {
                       <td style={{ padding: '8px' }}>{r.count}</td>
                       <td style={{ padding: '8px', color: 'var(--saffron-orange)', fontWeight: 600 }}>{r.diet}</td>
                       <td style={{ padding: '8px' }}>{r.song || '—'}</td>
+                      <td style={{ padding: '8px', textAlign: 'center' }}>
+                        <button
+                          onClick={() => handleDeleteRsvp(r.id)}
+                          style={{ background: '#ffebee', color: '#c62828', border: '1px solid #ffcdd2', padding: '4px 8px', borderRadius: '6px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 600 }}
+                        >
+                          🗑️ Delete
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
