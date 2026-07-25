@@ -1,12 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { db } from './lib/supabase';
 
 export default function App() {
-  // Audio state
-  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
-  const audioRef = useRef(null);
-
   // Countdown state
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -143,19 +139,6 @@ export default function App() {
     draw();
   };
 
-  // Audio Handler
-  const toggleMusic = () => {
-    if (!audioRef.current) return;
-    if (isPlayingMusic) {
-      audioRef.current.pause();
-      setIsPlayingMusic(false);
-    } else {
-      audioRef.current.play().then(() => setIsPlayingMusic(true)).catch(err => {
-        showToast("Click anywhere on the page first to allow ambient audio!", "🎵");
-      });
-    }
-  };
-
   // Confetti trigger
   const triggerConfetti = () => {
     confetti({
@@ -247,9 +230,6 @@ export default function App() {
     <div>
       <canvas id="petalsCanvas"></canvas>
 
-      {/* Audio Element: Serene Sacred Indian Flute (Bansuri) Ambient Music - No Drums/Beats */}
-      <audio ref={audioRef} loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=indian-flute-ambient-112318.mp3" />
-
       {/* Custom Luxury Toast Banner */}
       {toast.show && (
         <div className="toast-container">
@@ -262,14 +242,10 @@ export default function App() {
       )}
 
       {/* Top Shloka Bar (Tamil & Telugu Invocations) */}
-      <div className="shloka-bar">
+      <div className="shloka-bar" style={{ justifyContent: 'center' }}>
         <span style={{ fontFamily: "'Cinzel', serif", fontWeight: 700 }}>
           ॥ ஶ்ரீ கணேசாய நமஃ ॥ &nbsp;|&nbsp; ॥ శ్రీ గణేశాయ నమః ॥ &nbsp;|&nbsp; Seemantham/Valaikappu
         </span>
-        <button className="music-btn" onClick={toggleMusic}>
-          <span>{isPlayingMusic ? '⏸️' : '🎵'}</span>
-          <span>{isPlayingMusic ? 'Pause Flute Ambiance' : 'Play Sacred Flute'}</span>
-        </button>
       </div>
 
       {/* Header */}
