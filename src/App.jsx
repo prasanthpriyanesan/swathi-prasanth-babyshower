@@ -501,7 +501,7 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Simplified Minimal RSVP Modal (Only Name & Total Attending) */}
+      {/* RSVP Modal */}
       {isRsvpOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -509,7 +509,7 @@ export default function App() {
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>
               <div style={{ fontSize: '2.5rem' }}>🪔</div>
               <h2 className="font-heading" style={{ color: 'var(--deep-maroon)', fontSize: '2rem' }}>Confirm Your Presence</h2>
-              <p style={{ color: 'var(--text-muted)' }}>Please RSVP by August 5, 2026</p>
+              <p style={{ color: 'var(--text-muted)' }}>Please RSVP by August 10, 2026</p>
             </div>
 
             <form onSubmit={handleRsvpSubmit}>
