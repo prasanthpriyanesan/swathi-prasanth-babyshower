@@ -166,7 +166,7 @@ export default function App() {
     setIsRsvpOpen(false);
     setRsvpForm({ name: '', phone: '', count: '2', diet: 'Pure Veg', song: '' });
     await loadData();
-    alert(`🪔 Thank you, ${rsvpForm.name}! Your RSVP has been confirmed for Swathi & Prasanth's celebration.`);
+    alert(`🪔 Thank you, ${rsvpForm.name}! Your RSVP has been confirmed for Swathi's celebration.`);
   };
 
   const handleBlessingSubmit = async (e) => {
@@ -218,7 +218,7 @@ export default function App() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "Swathi_Prasanth_Seemantham_RSVPs.csv");
+    link.setAttribute("download", "Swathi_Seemantham_RSVPs.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -272,9 +272,15 @@ export default function App() {
           <h1 className="hero-title font-heading">Celebrating New Life & Motherhood</h1>
           <p className="hero-subtitle">With the Blessings of Elders & Divine Grace, We Warmly Invite You to the Seemantham/Valaikappu of</p>
           
-          <h2 style={{ fontFamily: "'Rozha One', serif", fontSize: '3rem', color: 'var(--turmeric-yellow)', marginBottom: '25px', textShadow: '0 2px 10px rgba(0,0,0,0.6)' }}>
-            Swathi
-          </h2>
+          {/* Swathi in English, Tamil (சுவாதி), and Telugu (స్వాతి) */}
+          <div style={{ marginBottom: '25px' }}>
+            <h2 style={{ fontFamily: "'Rozha One', serif", fontSize: '3.2rem', color: 'var(--turmeric-yellow)', textShadow: '0 2px 10px rgba(0,0,0,0.6)', lineHeight: '1.2' }}>
+              Swathi
+            </h2>
+            <div style={{ fontSize: '1.5rem', color: 'var(--primary-gold-light)', fontWeight: 700, letterSpacing: '2px', textShadow: '0 2px 8px rgba(0,0,0,0.7)', marginTop: '4px' }}>
+              சுவாதி &nbsp;•&nbsp; స్వాతి
+            </div>
+          </div>
 
           {/* Countdown Card */}
           <div className="hero-date-card">
@@ -315,7 +321,7 @@ export default function App() {
                 Seemantham/Valaikappu (சீமந்தம்/வளைகாப்பு)
               </h3>
               <p>
-                <strong>Seemantham</strong> (తెలుగు) / <strong>Valaikappu</strong> (தமிழ்) is a time-honored traditional celebration showering the mother-to-be, <strong>Swathi</strong>, with love, glass bangles, turmeric, kumkum, and elder blessings.
+                <strong>Seemantham</strong> (తెలుగు) / <strong>Valaikappu</strong> (தமிழ்) is a time-honored traditional celebration showering the mother-to-be, <strong>Swathi (சுவாதி / స్వాతి)</strong>, with love, glass bangles, turmeric, kumkum, and elder blessings.
               </p>
               <p>
                 We warmly welcome our beloved family and friends to join us in bestowing Ashirwadam, chanting sacred prayers, and celebrating this joyful milestone together.
