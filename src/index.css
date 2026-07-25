@@ -11,7 +11,7 @@
   --peacock-teal: #004D40;
   --silk-cream: #FFFDF5;
   --silk-warm: #FAF4E8;
-  --card-bg: rgba(255, 253, 245, 0.9);
+  --card-bg: rgba(255, 253, 245, 0.92);
   --card-border: rgba(212, 175, 55, 0.35);
   --text-dark: #2C1810;
   --text-muted: #6B4E3D;
@@ -178,7 +178,7 @@ header {
   box-shadow: 0 6px 18px rgba(230, 81, 0, 0.35);
 }
 
-/* Hero Section with New Backdrop Image */
+/* Hero Section with Banana Leaf Backdrop */
 .hero {
   position: relative;
   min-height: 85vh;
@@ -186,8 +186,8 @@ header {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(rgba(44, 24, 16, 0.6), rgba(74, 14, 23, 0.72)),
-              url('/assets/traditional_silk_backdrop.png') center/cover no-repeat;
+  background: linear-gradient(rgba(24, 44, 16, 0.65), rgba(45, 74, 14, 0.75)),
+              url('/assets/banana_leaf_backdrop.png') center/cover no-repeat;
   color: #fff;
   padding: 80px 20px;
 }
@@ -200,7 +200,7 @@ header {
 
 .traditional-tag {
   display: inline-block;
-  background: rgba(212, 175, 55, 0.25);
+  background: rgba(212, 175, 55, 0.3);
   border: 1px solid var(--primary-gold);
   color: var(--primary-gold-light);
   font-family: 'Cinzel', serif;
@@ -210,14 +210,14 @@ header {
   border-radius: 30px;
   font-size: 0.85rem;
   margin-bottom: 20px;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(6px);
 }
 
 .hero-title {
   font-size: 3.5rem;
   line-height: 1.15;
   color: #FFF8E7;
-  text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  text-shadow: 0 4px 15px rgba(0,0,0,0.6);
   margin-bottom: 12px;
 }
 
@@ -231,7 +231,7 @@ header {
 .hero-date-card {
   display: inline-flex;
   gap: 24px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(212, 175, 55, 0.4);
   border-radius: 16px;
