@@ -35,7 +35,6 @@ export default function App() {
   useEffect(() => {
     loadData();
     initCountdown();
-    initPetalsCanvas();
 
     // Check Secret URL: ?admin=true or ?host=true
     const params = new URLSearchParams(window.location.search);
@@ -87,60 +86,7 @@ export default function App() {
     return () => clearInterval(interval);
   };
 
-  // Falling Petals Canvas
-  const initPetalsCanvas = () => {
-    const canvas = document.getElementById('petalsCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener('resize', resize);
-
-    const colors = ['#FF8C00', '#FFB300', '#FFD700', '#E65100', '#FFF59D'];
-    const petals = Array.from({ length: 30 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height - canvas.height,
-      radius: Math.random() * 5 + 4,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      speedY: Math.random() * 1.5 + 0.8,
-      speedX: Math.random() * 1 - 0.5,
-      angle: Math.random() * 360,
-      spin: Math.random() * 0.04 - 0.02
-    }));
-
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      petals.forEach(p => {
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.angle);
-        ctx.beginPath();
-        ctx.ellipse(0, 0, p.radius, p.radius * 1.6, 0, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = 0.75;
-        ctx.fill();
-        ctx.restore();
-
-        p.y += p.speedY;
-        p.x += Math.sin(p.y * 0.01) * 0.8 + p.speedX;
-        p.angle += p.spin;
-
-        if (p.y > canvas.height + 20) {
-          p.y = -20;
-          p.x = Math.random() * canvas.width;
-        }
-      });
-      requestAnimationFrame(draw);
-    };
-
-    draw();
-  };
-
-  // Confetti trigger
+  // Confetti trigger for RSVP / Blessing post
   const triggerConfetti = () => {
     confetti({
       particleCount: 80,
@@ -167,7 +113,7 @@ export default function App() {
     setIsRsvpOpen(false);
     setRsvpForm({ name: '', count: '2', phone: 'N/A', diet: 'Pure Veg', song: '' });
     await loadData();
-    showToast(`Thank you ${guestName}! Your RSVP has been confirmed for Swathi's celebration.`, '🪔');
+    showToast(`Thank you ${guestName}! Your RSVP has been confirmed for Swathi Aparna's celebration.`, '🪔');
   };
 
   const handleBlessingSubmit = async (e) => {
@@ -218,7 +164,7 @@ export default function App() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", "Swathi_Seemantham_RSVPs.csv");
+    link.setAttribute("download", "Swathi_Aparna_Seemantham_RSVPs.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -229,8 +175,6 @@ export default function App() {
 
   return (
     <div>
-      <canvas id="petalsCanvas"></canvas>
-
       {/* Custom Luxury Toast Banner */}
       {toast.show && (
         <div className="toast-container">
@@ -286,7 +230,7 @@ export default function App() {
 
       {/* Mobile Drawer Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="modal-overlay" style={{ zindex: 150 }} onClick={() => setIsMobileMenuOpen(false)}>
+        <div className="modal-overlay" style={{ zIndex: 150 }} onClick={() => setIsMobileMenuOpen(false)}>
           <div className="modal-content" style={{ maxWidth: '320px', padding: '24px' }} onClick={e => e.stopPropagation()}>
             <button className="modal-close" onClick={() => setIsMobileMenuOpen(false)}>✕</button>
             <div style={{ textAlign: 'center', marginBottom: '20px' }}>
@@ -315,13 +259,13 @@ export default function App() {
           <h1 className="hero-title font-heading">Celebrating New Life & Motherhood</h1>
           <p className="hero-subtitle">With the Blessings of Elders & Divine Grace, We Warmly Invite You to the Seemantham/Valaikappu of</p>
           
-          {/* Swathi in English, Tamil (சுவாதி), and Telugu (స్వాతి) */}
+          {/* Swathi Aparna in English, Tamil (சுவாதி அபர்ணா), and Telugu (స్వాతి అపర్ణ) */}
           <div style={{ marginBottom: '25px' }}>
             <h2 style={{ fontFamily: "'Rozha One', serif", fontSize: '3.2rem', color: 'var(--turmeric-yellow)', textShadow: '0 2px 10px rgba(0,0,0,0.6)', lineHeight: '1.2' }}>
-              Swathi
+              Swathi Aparna
             </h2>
-            <div style={{ fontSize: '1.5rem', color: 'var(--primary-gold-light)', fontWeight: 700, letterSpacing: '2px', textShadow: '0 2px 8px rgba(0,0,0,0.7)', marginTop: '4px' }}>
-              சுவாதி &nbsp;•&nbsp; స్వాతి
+            <div style={{ fontSize: '1.45rem', color: 'var(--primary-gold-light)', fontWeight: 700, letterSpacing: '2px', textShadow: '0 2px 8px rgba(0,0,0,0.7)', marginTop: '6px' }}>
+              சுவாதி அபர்ணா &nbsp;•&nbsp; స్వాతి అపర్ణ
             </div>
           </div>
 
@@ -364,7 +308,7 @@ export default function App() {
                 Seemantham/Valaikappu (சீமந்தம்/வளைகாப்பு)
               </h3>
               <p>
-                <strong>Seemantham</strong> (తెలుగు) / <strong>Valaikappu</strong> (தமிழ்) is a time-honored traditional celebration showering the mother-to-be, <strong>Swathi (சுவாதி / స్వాతి)</strong>, with love, glass bangles, turmeric, kumkum, and elder blessings.
+                <strong>Seemantham</strong> (తెలుగు) / <strong>Valaikappu</strong> (தமிழ்) is a time-honored traditional celebration showering the mother-to-be, <strong>Swathi Aparna (சுவாதி அபர்ணா / స్వాతి అపర్ణ)</strong>, with love, glass bangles, turmeric, kumkum, and elder blessings.
               </p>
               <p>
                 We warmly welcome our beloved family and friends to join us in bestowing Ashirwadam, chanting sacred prayers, and celebrating this joyful milestone together.
@@ -375,7 +319,7 @@ export default function App() {
             </div>
 
             <div className="welcome-image-wrapper">
-              <img src="/assets/traditional_kalash.png" alt="Traditional Kalash and Bangles Motif" />
+              <img src="/assets/traditional_kalash.png" alt="Traditional Seemantham Mother-to-be Artwork" />
             </div>
           </div>
         </div>
@@ -431,7 +375,7 @@ export default function App() {
           <div className="section-header">
             <div className="section-icon">🙏</div>
             <h2 className="section-title font-heading">Ashirwadam & Wishes Board</h2>
-            <p className="section-sub">Shower Swathi & Prasanth with Your Heartfelt Blessings</p>
+            <p className="section-sub">Shower Swathi Aparna & Prasanth with Your Heartfelt Blessings</p>
           </div>
 
           <div className="wishes-form-card">
@@ -481,7 +425,7 @@ export default function App() {
             <div style={{ textAlign: 'center', padding: '40px', background: '#fff', borderRadius: '16px', border: '2px dashed var(--card-border)' }}>
               <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🌸</div>
               <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-                Be the first to leave an Ashirwadam blessing for Swathi & Prasanth!
+                Be the first to leave an Ashirwadam blessing for Swathi Aparna & Prasanth!
               </p>
             </div>
           ) : (
@@ -537,7 +481,7 @@ export default function App() {
           >
             ॥ సర్వేజనా సుఖినోభవంతు ॥ &nbsp;|&nbsp; ॥ வாழ்க வளமுடன் ॥
           </p>
-          <p>May all beings be blessed with peace and health. With love, Swathi & Prasanth Family.</p>
+          <p>May all beings be blessed with peace and health. With love, Swathi Aparna & Prasanth Family.</p>
         </div>
       </footer>
 
