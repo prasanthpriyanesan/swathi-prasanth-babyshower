@@ -8,7 +8,8 @@
   --turmeric-yellow: #FFB300;
   --crimson-red: #8B0000;
   --deep-maroon: #4A0E17;
-  --peacock-teal: #004D40;
+  --banana-leaf-dark: #1A340F;
+  --banana-leaf-green: #2B4C18;
   --silk-cream: #FFFDF5;
   --silk-warm: #FAF4E8;
   --card-bg: rgba(255, 253, 245, 0.94);
@@ -49,7 +50,7 @@ body {
 }
 
 .toast-card {
-  background: linear-gradient(135deg, var(--deep-maroon), #6B111D);
+  background: linear-gradient(135deg, var(--banana-leaf-dark), var(--banana-leaf-green));
   color: #fff;
   border: 2px solid var(--primary-gold);
   border-radius: var(--radius-md);
@@ -57,7 +58,7 @@ body {
   display: flex;
   align-items: center;
   gap: 14px;
-  box-shadow: 0 12px 35px rgba(74, 14, 23, 0.4), 0 0 20px rgba(212, 175, 55, 0.3);
+  box-shadow: 0 12px 35px rgba(26, 52, 15, 0.4), 0 0 20px rgba(212, 175, 55, 0.3);
 }
 
 .toast-icon {
@@ -100,9 +101,9 @@ body {
   font-family: 'Cinzel', serif;
 }
 
-/* Top Shloka Bar - Traditional Deep Maroon & Gold Accent */
+/* Top Shloka Bar - Banana Leaf Green & Gold Gradient */
 .shloka-bar {
-  background: linear-gradient(135deg, var(--deep-maroon), #5E0F1B);
+  background: linear-gradient(135deg, var(--banana-leaf-dark), var(--banana-leaf-green));
   color: var(--primary-gold-light);
   text-align: center;
   padding: 10px 15px;
@@ -122,7 +123,7 @@ body {
   padding: 0 20px;
 }
 
-/* Header & Nav - Matching Silk Cream with Deep Maroon & Gold */
+/* Header & Nav - Matching Silk Cream with Green & Gold */
 header {
   position: sticky;
   top: 0;
@@ -130,7 +131,7 @@ header {
   backdrop-filter: blur(12px);
   z-index: 90;
   border-bottom: 2px solid var(--card-border);
-  box-shadow: 0 4px 20px rgba(74, 14, 23, 0.08);
+  box-shadow: 0 4px 20px rgba(27, 52, 15, 0.08);
 }
 
 .nav-content {
@@ -164,7 +165,7 @@ header {
   font-family: 'Cinzel', serif;
   font-weight: 700;
   font-size: 1.15rem;
-  color: var(--deep-maroon);
+  color: var(--banana-leaf-dark);
 }
 
 .nav-links {
@@ -176,7 +177,7 @@ header {
 
 .nav-links a {
   text-decoration: none;
-  color: var(--deep-maroon);
+  color: var(--banana-leaf-dark);
   font-weight: 700;
   font-size: 0.95rem;
   transition: color 0.3s ease;
@@ -225,7 +226,7 @@ header {
   gap: 6px;
   background: #fff;
   border: 1px solid var(--card-border);
-  color: var(--deep-maroon);
+  color: var(--banana-leaf-dark);
   padding: 6px 14px;
   border-radius: 20px;
   font-size: 0.85rem;
@@ -244,7 +245,7 @@ header {
   display: none;
   background: var(--silk-warm);
   border: 1px solid var(--card-border);
-  color: var(--deep-maroon);
+  color: var(--banana-leaf-dark);
   font-size: 1.3rem;
   width: 38px;
   height: 38px;
@@ -398,7 +399,7 @@ header {
 
 .section-title {
   font-size: 2.5rem;
-  color: var(--deep-maroon);
+  color: var(--banana-leaf-dark);
   margin-bottom: 6px;
 }
 
@@ -500,7 +501,7 @@ header {
 
 .venue-card {
   margin-top: 40px;
-  background: linear-gradient(135deg, var(--deep-maroon), #6B111D);
+  background: linear-gradient(135deg, var(--banana-leaf-dark), var(--banana-leaf-green));
   color: #fff;
   border-radius: var(--radius-lg);
   padding: 40px;
@@ -509,7 +510,7 @@ header {
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  box-shadow: 0 15px 35px rgba(74, 14, 23, 0.2);
+  box-shadow: 0 15px 35px rgba(27, 52, 15, 0.2);
 }
 
 /* Blessings Wall */
@@ -530,7 +531,7 @@ header {
   display: block;
   font-weight: 600;
   margin-bottom: 8px;
-  color: var(--deep-maroon);
+  color: var(--banana-leaf-dark);
 }
 
 .form-control {
@@ -570,7 +571,7 @@ header {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(44, 24, 16, 0.7);
+  background: rgba(26, 52, 15, 0.7);
   backdrop-filter: blur(8px);
   z-index: 200;
   display: flex;
@@ -602,12 +603,12 @@ header {
   border-radius: 50%;
   font-size: 1.2rem;
   cursor: pointer;
-  color: var(--deep-maroon);
+  color: var(--banana-leaf-dark);
 }
 
-/* Footer */
+/* Footer - Banana Leaf Green & Gold Accent */
 footer {
-  background: var(--deep-maroon);
+  background: var(--banana-leaf-dark);
   color: var(--primary-gold-light);
   text-align: center;
   padding: 40px 20px;
