@@ -212,7 +212,7 @@ export default function App() {
       {/* Top Shloka Bar (Tamil & Telugu Invocations) */}
       <div className="shloka-bar">
         <span style={{ fontFamily: "'Cinzel', serif", fontWeight: 700 }}>
-          ॥ ஶ்ரீ கணேசாய நமஃ ॥ &nbsp;|&nbsp; ॥ శ్రీ గణేశాయ నమః ॥ &nbsp;|&nbsp; Seemantham/Valaikappu
+          ॥ ஶ்ரீ கணேசாய நமஃ ॥ &nbsp;|&nbsp; ॥ శ్రీ గణేశాయ నమః ॥
         </span>
       </div>
 
