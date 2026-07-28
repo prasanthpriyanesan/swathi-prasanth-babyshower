@@ -478,16 +478,24 @@ export default function App() {
             <p className="section-sub">Your presence and blessings are our greatest gift!</p>
           </div>
 
-          <div style={{ maxWidth: '500px', margin: '0 auto' }}>
-            <div style={{ background: '#fff', padding: '35px 24px', borderRadius: '16px', textAlign: 'center', border: '1px solid var(--card-border)' }}>
-              <div style={{ fontSize: '2.8rem', marginBottom: '12px' }}>🎁</div>
-              <h3 className="font-subheading" style={{ color: 'var(--deep-maroon)', marginBottom: '8px' }}>Baby Registry</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '16px' }}>
-                Baby registry details will be updated soon. Stay tuned!
+          <div style={{ maxWidth: '540px', margin: '0 auto' }}>
+            <div style={{ background: '#fff', padding: '40px 28px', borderRadius: '20px', textAlign: 'center', border: '2px solid var(--primary-gold)', boxShadow: 'var(--shadow-card)' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '14px' }}>🎁</div>
+              <h3 className="font-heading" style={{ color: 'var(--banana-leaf-dark)', fontSize: '1.8rem', marginBottom: '8px' }}>
+                Amazon Baby Registry
+              </h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', marginBottom: '24px', lineHeight: '1.5' }}>
+                We have curated a baby registry on Amazon for Swathi Aparna & Prasanth's little one.
               </p>
-              <button className="btn-secondary" style={{ background: 'var(--silk-warm)', color: 'var(--text-dark)', border: '1px solid var(--card-border)', cursor: 'default' }}>
-                Registry Coming Soon
-              </button>
+              <a
+                href="https://www.amazon.com/baby-reg/swathi-prasanth-october-2026-roundrock/1QTMW789IHPRP"
+                target="_blank"
+                rel="noreferrer"
+                className="btn-primary"
+                style={{ textDecoration: 'none', padding: '14px 32px', fontSize: '1.05rem' }}
+              >
+                <span>📦 View Amazon Baby Registry</span>
+              </a>
             </div>
           </div>
         </div>
