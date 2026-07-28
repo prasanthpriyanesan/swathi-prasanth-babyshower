@@ -9,9 +9,15 @@ export default function App() {
   // Modals state
   const [isRsvpOpen, setIsRsvpOpen] = useState(false);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
+  const [isPasscodeModalOpen, setIsPasscodeModalOpen] = useState(false);
+  const [adminPasscode, setAdminPasscode] = useState('');
+  const [passcodeError, setPasscodeError] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [adminTab, setAdminTab] = useState('rsvps'); // 'rsvps' or 'blessings'
   const [clickCount, setClickCount] = useState(0);
+
+  // Host Admin Secret Passcode
+  const HOST_PASSCODE = "2026";
 
   // Toast Notification state
   const [toast, setToast] = useState({ show: false, message: '', icon: '✨' });
@@ -36,10 +42,10 @@ export default function App() {
     loadData();
     initCountdown();
 
-    // Check Secret URL: ?admin=true or ?host=true
+    // Check Secret URL: ?admin=true or ?host=true -> prompt PIN lock
     const params = new URLSearchParams(window.location.search);
     if (params.get('admin') === 'true' || params.get('host') === 'true') {
-      setIsAdminOpen(true);
+      openPasscodePrompt();
     }
   }, []);
 
@@ -51,12 +57,29 @@ export default function App() {
     setRsvps(loadedRsvps);
   };
 
+  // Admin Access Control Prompt
+  const openPasscodePrompt = () => {
+    setAdminPasscode('');
+    setPasscodeError(false);
+    setIsPasscodeModalOpen(true);
+  };
+
+  const handleVerifyPasscode = (e) => {
+    e.preventDefault();
+    if (adminPasscode === HOST_PASSCODE) {
+      setIsPasscodeModalOpen(false);
+      setIsAdminOpen(true);
+    } else {
+      setPasscodeError(true);
+    }
+  };
+
   // Secret Triple-Click Gesture on Footer Symbol
   const handleSecretFooterClick = () => {
     const nextCount = clickCount + 1;
     setClickCount(nextCount);
     if (nextCount >= 3) {
-      setIsAdminOpen(true);
+      openPasscodePrompt();
       setClickCount(0);
     }
   };
@@ -484,6 +507,45 @@ export default function App() {
           <p>May all beings be blessed with peace and health. With love, Swathi Aparna & Prasanth Family.</p>
         </div>
       </footer>
+
+      {/* Host Admin Passcode Verification Modal */}
+      {isPasscodeModalOpen && (
+        <div className="modal-overlay" style={{ zIndex: 250 }}>
+          <div className="modal-content" style={{ maxWidth: '420px', textAlign: 'center' }}>
+            <button className="modal-close" onClick={() => setIsPasscodeModalOpen(false)}>✕</button>
+            <div style={{ fontSize: '2.8rem', marginBottom: '8px' }}>🔐</div>
+            <h2 className="font-heading" style={{ color: 'var(--banana-leaf-dark)' }}>Host Admin Lock</h2>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', marginBottom: '20px' }}>
+              Enter Host PIN passcode to view guest list & manage entries:
+            </p>
+
+            <form onSubmit={handleVerifyPasscode}>
+              <div className="form-group">
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="Enter Host PIN Passcode..."
+                  value={adminPasscode}
+                  onChange={e => { setAdminPasscode(e.target.value); setPasscodeError(false); }}
+                  style={{ textAlign: 'center', fontSize: '1.2rem', letterSpacing: '4px' }}
+                  autoFocus
+                  required
+                />
+              </div>
+
+              {passcodeError && (
+                <p style={{ color: '#c62828', fontSize: '0.85rem', fontWeight: 700, marginBottom: '14px' }}>
+                  ❌ Incorrect Passcode. Please try again!
+                </p>
+              )}
+
+              <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+                <span>Unlock Control Panel</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* RSVP Modal */}
       {isRsvpOpen && (
